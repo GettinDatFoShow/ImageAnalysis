@@ -1,0 +1,25 @@
+**The interview questions are as follows:**
+
+First, we would like to know exactly what this program is expected to do.
+Should the program compare slightly different images and relay to the user a percentage of differences?
+
+Should if analyze more than two images?
+
+Should it take two images of different sizes and only return whether they are different or the same?
+ 
+How fast should the program ideally return the results? 
+
+Is there a particular framework or operating system that you prefer the program run on?
+
+Should it be written in a particular language?
+
+Is there a particular file format that should be used?
+
+Should the program include any web access? (i.e. should if be able to pull images from particular sites? or be a web program?)
+
+should the program save results? or only present them?
+
+Answers to these questions, and any extra input toward this project is greatly appreciated. Team Image Analysis would like to recognized that although your project requirements are stated here in this formal interview questionnaire, we understand that your wishes may change in the middle of project development. As a **disclaimer** would we would like to notify you as the client, that changing these requirements in the middle of the development cycle could be costly or even result in deadlines not being met and therefor, is **not recommended**.
+
+Thank You,
+**Team Image Analysis**
