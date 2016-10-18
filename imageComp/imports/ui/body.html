@@ -1,0 +1,30 @@
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <h2>Selections</h2>
+
+    </header>
+
+    <ul>
+
+      {{#each tasks}}
+
+        {{> task}}
+
+      {{/each}}
+
+    </ul>
+
+  </div>
+
+</body>
+
+
+<template name="task">
+
+  <li>{{text}}</li>
+
+</template>

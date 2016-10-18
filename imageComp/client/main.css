@@ -4,19 +4,17 @@
 body {
     font-family: sans-serif;
     background-color: #315481;
-    background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+    background-image: linear-gradient(to bottom, #315481, #38bba2 87%);
     background-attachment: fixed;
-
-    position: absolute;
+    /*position: center;*/
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-
     padding: 0;
     margin: 0;
-
     font-size: 14px;
+    text-align: center;
 }
 
 .container {
@@ -31,6 +29,7 @@ header {
     background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
     padding: 20px 15px 15px 15px;
     position: relative;
+    text-align: center;
 }
 
 #login-buttons {
@@ -38,81 +37,83 @@ header {
 }
 
 h1 {
-    font-size: 1.5em;
+    text-align: center;
+    color: rgba(56, 187, 162, 0.87);
+    font-size: 4em;
+    /*position: static;*/
     margin: 0;
     margin-bottom: 10px;
     display: inline-block;
     margin-right: 1em;
 }
-
-form {
-    margin-top: 10px;
-    margin-bottom: -10px;
-    position: relative;
+h2 {
+    text-align: center;
+    color: rgba(56, 187, 162, 0.87);
+    font-size: 3em;
+    margin: 0;
+    margin-bottom: 10px;
+    display: inline-block;
+    /*margin-right: 1em;*/
 }
 
-.new-task input {
-    box-sizing: border-box;
-    padding: 10px 0;
-    background: transparent;
-    border: none;
-    width: 100%;
-    padding-right: 80px;
-    font-size: 1em;
-}
-
-.new-task input:focus{
-    outline: 0;
-}
-
+/*Selection box List color!*/
 ul {
+    text-align: center;
+    /*position: relative;*/
     margin: 0;
     padding: 0;
-    background: white;
+    background: rgba(56, 187, 162, 0.87);
 }
 
-.delete {
-    float: right;
-    font-weight: bold;
-    background: none;
-    font-size: 1em;
-    border: none;
+/*Selection box!*/
+header {
+    background: #d2edf4;
+    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    padding: 20px 15px 15px 15px;
     position: relative;
 }
+
 
 li {
-    position: relative;
+    text-align: center;
+    font-size: 2em;
+    /*position: relative;*/
     list-style: none;
     padding: 15px;
-    border-bottom: #eee solid 1px;
+    color: rgb(255, 255, 255);
+    border-bottom: #eee solid 5px;
+    border-left: #eee solid 5px;
+    border-right: #eee solid 5px;
 }
 
-li .text {
+/*li .text {
     margin-left: 10px;
-}
 
+    position: relative;
+}
+/*
 li.checked {
     color: #888;
-}
+}*/
 
-li.checked .text {
+/*li.checked .text {
     text-decoration: line-through;
 }
 
 li.private {
     background: #eee;
     border-color: #ddd;
-}
+}*/
 
-header .hide-completed {
-    float: right;
+/*header .hide-completed {
+    float: center;
 }
 
 .toggle-private {
     margin-left: 5px;
-}
+}*/
 
-@media (max-width: 600px) {
+/*@media (max-width: 600px) {
     li {
         padding: 12px 15px;
     }
@@ -125,9 +126,9 @@ header .hide-completed {
     .new-task input {
         padding-bottom: 5px;
     }
-}
+}*/
 
-.map-container {
+/*.map-container {
     width: 600px;
     max-width: 100%;
     height: 400px;
@@ -135,10 +136,39 @@ header .hide-completed {
 
 .user-info-form{
     height: 600px;
-    background-color: #315481;
-}
+    background-color: #e2d562;
+}*/
 
-.section-header{
+/*.section-header{
     position: center;
     text-align: center;
-}
+}*/
+
+/*form {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    position: relative;
+}*/
+
+/*.new-task input {
+    box-sizing: border-box;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding-right: 80px;
+    font-size: 1em;
+}*/
+
+/*.new-task input:focus{
+    outline: 0;
+}*/
+
+/*.delete {
+    float: right;
+    font-weight: bold;
+    background: none;
+    font-size: 1em;
+    border: none;
+    position: relative;
+}*/
