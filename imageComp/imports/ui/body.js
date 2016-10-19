@@ -17,7 +17,6 @@ import './body.html';
 Template.choice.events({
   'click button'(event, instance) {
 
-
   }});
 // Template.choice.onCreated(function choiceOnCreated() {
 //   return;

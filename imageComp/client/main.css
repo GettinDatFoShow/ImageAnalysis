@@ -1,5 +1,11 @@
 /* CSS declarations go here */
 /* CSS declarations go here */
+header {
+    background: #d2edf4;
+    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    padding: 20px 15px 15px 15px;
+    position: relative;
+}
 
 body {
     font-family: sans-serif;
@@ -17,21 +23,6 @@ body {
     text-align: center;
 }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    min-height: 100%;
-    background: white;
-}
-
-header {
-    background: #d2edf4;
-    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
-    padding: 20px 15px 15px 15px;
-    position: relative;
-    text-align: center;
-}
-
 #login-buttons {
     display: block;
 }
@@ -39,6 +30,7 @@ header {
 h1 {
     text-align: center;
     color: rgba(56, 187, 162, 0.87);
+    text-shadow: 2px 2px #ced3d4;
     font-size: 4em;
     /*position: static;*/
     margin: 0;
@@ -48,6 +40,7 @@ h1 {
 }
 h2 {
     text-align: center;
+    text-shadow: 2px 2px #32535b;
     color: rgba(56, 187, 162, 0.87);
     font-size: 3em;
     margin: 0;
@@ -57,38 +50,44 @@ h2 {
 }
 
 /*Selection box List color!*/
+/*Selection box!*/
+
 ul {
     text-align: center;
     /*position: relative;*/
+    text-shadow: 2px 2px #32535b;
     margin: 0;
     padding: 0;
     background: rgba(56, 187, 162, 0.87);
-}
-
-/*Selection box!*/
-header {
-    background: #d2edf4;
-    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
-    padding: 20px 15px 15px 15px;
-    position: relative;
 }
 
 
 li {
     text-align: center;
     font-size: 1em;
+    text-shadow: 2px 2px #32535b;
     /*position: relative;*/
     list-style: none;
     padding: 15px;
     color: rgb(255, 255, 255);
-    border-bottom: #eee solid 5px;
-    border-left: #eee solid 5px;
-    border-right: #eee solid 5px;
+    border-bottom: #eee solid 3px;
+    border-left: #eee solid 3px;
+    border-right: #eee solid 3px;
+}
+
+.container {
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: 100%;
+    background: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 button {
   text-align: center;
   font-size: 2em;
+  text-shadow: 2px 2px #32535b;
   /*position: relative;*/
   list-style: none;
   padding: 40px;
@@ -98,6 +97,25 @@ button {
   border-right: #eee solid 5px;
 }
 
+ /* Main page (home) buttons contained in .container */
+.buttonContainer1 {
+      border-radius: 8px;
+      min-width: 450px;
+      margin: 0 auto;
+      min-height: 80%;
+      background: rgba(56, 187, 162, 0.87);
+      border: 3px solid #1d8ecd;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+.buttonContainer1:hover {
+  background-color: #FFFFFF;
+  color: #1d8ecd;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
 /*li .text {
     margin-left: 10px;
 

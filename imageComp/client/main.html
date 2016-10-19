@@ -1,23 +1,64 @@
+<!--
 <head>
   <title>I.Compare</title>
 </head>
 
 <body>
   <h1>Welcome to I.Compare!</h1>
-</body>
+</body> -->
+<template name="main">
+      {{> yield}}
+      <br/>
+      <br/>
+      <hr align="center" width='100%'>
+      <p> I.Compare is a web based application project created with Meteor.js<br/>
+          I.Compare will provide its user with a few different ways to compare or analyze images.</p>
+      <p> Created by JY and RM </p>
+</template>
 
 <template name="home">
-  <body>
-    <h1>Welcome to I.Compare!</h1>
-    {{>selections}}
-  </body>
+      <h1>Welcome to I.Compare!</h1>
+      {{>Selections}}
 </template>
 
-<template name="main">
-  {{> yield}}
-  <hr align="center"/>
-  <p> Created by JY and RM </p>
+<template name="sidebyside">
+        <h1>Side By Side Comparison</h1>
 </template>
+
+<template name="folder">
+        <h1>Image Folder Analysis</h1>
+</template>
+
+<template name="weblink">
+        <h1>Web Link Image Analysis</h1>
+</template>
+
+
+ <!-- ************************ MOVED BODY FILE ***************  -->
+
+ <template name="Selections">
+   <div class="container">
+       <h2>Selections</h2>
+     <ul>
+         <li>{{>choice1}}</li>
+         <li>{{>choice2}}</li>
+         <li>{{>choice3}}</li>
+     </ul>
+   </div>
+ </template>
+
+  <!-- not implimented yet! -->
+ <template name="choice1">
+   <button class="buttonContainer1">Side by Side Comparison</button>
+ </template>
+
+ <template name="choice2">
+   <button class="buttonContainer1">Image Folder Analysis</button>
+ </template>
+
+ <template name="choice3">
+   <button class="buttonContainer1">Web Link</button>
+ </template>
 <!-- <template name="info">
   <h1>The Coffee Shop</h1>
   <ul>
