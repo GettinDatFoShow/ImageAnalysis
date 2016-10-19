@@ -1,25 +1,30 @@
 <head>
-  <title>Image Comparison</title>
+  <title>I.Compare</title>
 </head>
 
 <body>
-  <h1 >Welcome To Image Comparison!</h1>
-
-  <!-- {{> hello}} -->
-<!--  {{> info}} -->
+  <h1>Welcome to I.Compare!</h1>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="home">
+  <body>
+    <h1>Welcome to I.Compare!</h1>
+    {{>selections}}
+  </body>
 </template>
 
+<template name="main">
+  {{> yield}}
+  <hr align="center"/>
+  <p> Created by JY and RM </p>
+</template>
 <!-- <template name="info">
-  <h2>Learn Meteor!</h2>
+  <h1>The Coffee Shop</h1>
   <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+        <li><a href={{pathFor route='home'}}> Home </a></li>
+        <li><a href={{pathFor route='sidebyside'}}> Side By Side Comparison </a></li>
+        <li><a href={{pathFor route='folder'}}> Folder </a></li>
+        <li><a href={{pathFor route='weblink'}}> Web Link </a></li>
+        <li><a href={{pathFor route='history'}}> History </a></li>
   </ul>
 </template> -->

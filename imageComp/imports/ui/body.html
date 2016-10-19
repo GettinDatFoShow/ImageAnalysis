@@ -9,22 +9,24 @@
     </header>
 
     <ul>
-
-      {{#each tasks}}
-
-        {{> task}}
-
-      {{/each}}
-
+        <li>{{>choice1}}</li>
+        <li>{{>choice2}}</li>
+        <li>{{>choice3}}</li>
     </ul>
 
   </div>
 
 </body>
 
+ <!-- not implimented yet! -->
+<template name="choice1">
+  <button>Side by Side Comparison</button>
+</template>
 
-<template name="task">
+<template name="choice2">
+  <button>Image Folder Analysis</button>
+</template>
 
-  <li>{{text}}</li>
-
+<template name="choice3">
+  <button>Web Link</button>
 </template>

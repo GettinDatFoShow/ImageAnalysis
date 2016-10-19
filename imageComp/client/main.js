@@ -3,20 +3,35 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import '../imports/ui/body.js';
 import './main.html';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+if (Meteor.isClient) {
+    Meteor.startup(function() {
+        Session.setDefault("templateName", "main");
+    })
+}
+
+Router.route('/',{
+    name: 'home',
+    template: 'home',
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
+Router.route('/sidebyside',{
+    name: 'sidebyside',
+    template: 'sidebyside'
+});
+Router.route('/folder',{
+    name: 'folder',
+    template: 'folder'
+});
+Router.route('/login', {
+    name: 'login',
+    template: 'login'
 });
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Router.route('/weblink', {
+    name: 'weblink',
+    template: 'weblink'
+});
+S
+Router.configure({
+    layoutTemplate: 'main'
 });

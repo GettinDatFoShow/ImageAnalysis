@@ -2,14 +2,36 @@ import { Template } from 'meteor/templating';
 
 import './body.html';
 
-Template.body.helpers({
+// Template.body.helpers({
+//
+//   tasks: [
+//
+//     { text: 'Side by Side Comparison' },
+//
+//     { text: 'Image Folder Analysis' },
+//
+//     { text: 'Web Link Image' },
+//   ],
+// });
 
-  tasks: [
+Template.choice.events({
+  'click button'(event, instance) {
 
-    { text: 'Side by Side Comparison' },
 
-    { text: 'Image Folder Analysis' },
+  }});
+// Template.choice.onCreated(function choiceOnCreated() {
+//   return;
+// });
+//
+// Template.choice.helpers({
+//   counter() {
+//     return Template.instance().counter.get();
+//   },
+// });
 
-    { text: 'Web Link Image' },
-  ],
-});
+// Template.choice.events({
+//   'click button'(event, instance) {
+//     // increment the counter when button is clicked
+//     instance.counter.set(instance.counter.get() + 1);
+//   },
+// });
