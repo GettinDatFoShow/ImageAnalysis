@@ -6,31 +6,62 @@
 <body>
   <h1>Welcome to I.Compare!</h1>
 </body> -->
+
 <template name="main">
       {{> yield}}
       <br/>
       <br/>
       <hr align="center" width='100%'>
+      {{>returnHome}}
       <p> I.Compare is a web based application project created with Meteor.js<br/>
           I.Compare will provide its user with a few different ways to compare or analyze images.</p>
       <p> Created by JY and RM </p>
+      <hr align="center" width='100%'>
 </template>
 
 <template name="home">
+  <br/>
+  <br/>
       <h1>Welcome to I.Compare!</h1>
+      <hr align="center" width='100%'>
+      <br/>
+      <br/>
       {{>Selections}}
 </template>
 
+
 <template name="sidebyside">
         <h1>Side By Side Comparison</h1>
+        <hr align="center" width='100%'>
+        <br/>
+        <br/>
+        <div class="containerSBS">
+            <h2> Browse & Upload  </h2>
+          <ul>
+              <li>{{>imageUpload1}}</li>
+              <li>{{>imageUpload2}}</li>
+          </ul>
+        </div>
 </template>
+
 
 <template name="folder">
         <h1>Image Folder Analysis</h1>
+        <hr align="center" width='100%'>
+        <br/>
 </template>
+
 
 <template name="weblink">
         <h1>Web Link Image Analysis</h1>
+        <hr align="center" width='100%'>
+        <br/>
+</template>
+
+<template name="dataView">
+        <h1>Data View</h1>
+        <hr align="center" width='100%'>
+        <br/>
 </template>
 
 
@@ -38,27 +69,44 @@
 
  <template name="Selections">
    <div class="container">
-       <h2>Selections</h2>
+       <h2> Try One Out </h2>
      <ul>
          <li>{{>choice1}}</li>
          <li>{{>choice2}}</li>
          <li>{{>choice3}}</li>
+         <li>{{>choice4}}</li>
      </ul>
    </div>
  </template>
 
-  <!-- not implimented yet! -->
  <template name="choice1">
-   <button class="buttonContainer1">Side by Side Comparison</button>
+   <button id="gotToSBS" class="buttonContainer1">Side by Side Comparison</button>
  </template>
 
  <template name="choice2">
-   <button class="buttonContainer1">Image Folder Analysis</button>
+   <button id="gotToIFA" class="buttonContainer1">Image Folder Analysis</button>
  </template>
 
  <template name="choice3">
-   <button class="buttonContainer1">Web Link</button>
+   <button id="gotToWL" class="buttonContainer1">Web Link</button>
  </template>
+
+ <template name="choice4">
+   <button id="gotToDV" class="buttonContainer1">Data View</button>
+ </template>
+
+ <template name="imageUpload1">
+   <button id="gotToSBS" class="buttonContainer1">Upload Image 1</button>
+ </template>
+
+ <template name="imageUpload2">
+   <button id="gotToSBS" class="buttonContainer1">Upload Image 2</button>
+ </template>
+
+ <template name="returnHome">
+   <button id="goToHome" class="buttonContainer2">Return Home</button>
+ </template>
+
 <!-- <template name="info">
   <h1>The Coffee Shop</h1>
   <ul>

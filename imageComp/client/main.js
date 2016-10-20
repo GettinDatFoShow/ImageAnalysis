@@ -9,11 +9,9 @@ if (Meteor.isClient) {
     })
 }
 
-// Router.route('/', function () {
-//   this.render('Home', {
-//     data: function () { return Items.findOne({_id: this.params._id}); }
-//   });
-// });
+if(Meteor.isServer){
+    // server code goes here
+}
 
 Router.configure({
     layoutTemplate: 'main'
@@ -39,14 +37,39 @@ Router.route('/weblink', {
     template: 'weblink'
 });
 
+Router.route('/dataView', {
+    name: 'dataView',
+    template: 'dataView'
+});
 
-// ******* moved body.js file here ***********
+// Button Fucntions ************************
 
-Template.choice.events({
-  'click button'(event, instance) {
+Template.choice1.events({
+  'click #gotToSBS': function() {
+    Router.go('/sidebyside');
+  }
+})
 
-  }});
-// Router.route('/login', {
-//     name: 'login',
-//     template: 'login'
-// });
+Template.choice2.events({
+  'click #gotToIFA': function() {
+    Router.go('/folder');
+  }
+})
+
+Template.choice3.events({
+  'click #gotToWL': function() {
+    Router.go('/weblink');
+  }
+})
+
+Template.choice4.events({
+  'click #gotToDV': function() {
+    Router.go('/dataView');
+  }
+})
+
+Template.returnHome.events({
+  'click #goToHome': function() {
+    Router.go('/');
+  }
+})
