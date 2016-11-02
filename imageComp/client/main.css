@@ -31,7 +31,7 @@ h1 {
     text-align: center;
     color: rgba(56, 187, 162, 0.87);
     text-shadow: 2px 2px #ced3d4;
-    font-size: 4em;
+    font-size: 3em;
     /*position: static;*/
     margin: 0;
     margin-bottom: 10px;
@@ -128,9 +128,10 @@ button {
 
 .buttonContainer2 {
       border-radius: 8px;
-      min-width: 350px;
+      min-width: 250px;
       /*margin: 0 auto;*/
-      min-height: 50px;
+      text-align: center;
+      max-height:110px;
       background: #1d8ecd;
       border: 3px solid #ffffff;
       -webkit-transition-duration: 0.4s; /* Safari */
@@ -145,89 +146,83 @@ button {
   border: 3px solid #1d8ecd;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-/*li .text {
-    margin-left: 10px;
 
-    position: relative;
+
+/*HELPER FOR DISPLAYING IMAGES RGBANLAYSE*/
+
+#images div {
+  min-height: 550px;
 }
-/*
-li.checked {
-    color: #888;
-}*/
-
-/*li.checked .text {
-    text-decoration: line-through;
+#images div .demo {
+  display: inline-block;
+  vertical-align: top;
+  margin: 1em;
 }
-
-li.private {
-    background: #eee;
-    border-color: #ddd;
-}*/
-
-/*header .hide-completed {
-    float: center;
+#images div div {
+  display: inline-block;
+  padding-top: 1em;
+  height: 0;
+  overflow: visible;
+  min-height: 0;
 }
-
-.toggle-private {
-    margin-left: 5px;
-}*/
-
-/*@media (max-width: 600px) {
-    li {
-        padding: 12px 15px;
-    }
-
-    .search {
-        width: 150px;
-        clear: both;
-    }
-
-    .new-task input {
-        padding-bottom: 5px;
-    }
-}*/
-
-/*.map-container {
-    width: 600px;
-    max-width: 100%;
-    height: 400px;
+#images div div h2 {
+  margin: 0;
+  font-family: helvetica;
+  font-size: 100%;
+  font-variant: small-caps;
 }
-
-.user-info-form{
-    height: 600px;
-    background-color: #e2d562;
-}*/
-
-/*.section-header{
-    position: center;
-    text-align: center;
-}*/
-
-/*form {
-    margin-top: 10px;
-    margin-bottom: -10px;
-    position: relative;
-}*/
-
-/*.new-task input {
-    box-sizing: border-box;
-    padding: 10px 0;
-    background: transparent;
-    border: none;
-    width: 100%;
-    padding-right: 80px;
-    font-size: 1em;
-}*/
-
-/*.new-task input:focus{
-    outline: 0;
-}*/
-
-/*.delete {
-    float: right;
-    font-weight: bold;
-    background: none;
-    font-size: 1em;
-    border: none;
-    position: relative;
-}*/
+#images div div img {
+  margin: 0;
+  display: block;
+}
+#images div div img.histogram.visualisation {
+  width: 200px;
+  height: 200px;
+  background: white;
+  border: 1px solid black;
+}
+#images div div img.spectral.histogram.visualisation {
+  width: 200px;
+  height: 120px;
+  background: black;
+  border: 1px solid black;
+}
+#images div div img.spectogram.visualisation {
+  width: 200px;
+  height: 20px;
+  background: white;
+  border: 1px solid black;
+}
+#images div div hr {
+  margin: 0;
+  border: 1px solid black;
+  width: 200px;
+  height: 10px;
+}
+#images div div hr + hr {
+  margin-top: 1px;
+}
+dl {
+  font-family: arial;
+  margin-left: 2em;
+}
+dl dt {
+  font-weight: bold;
+  font-size: 80%;
+}
+dl dd {
+  position: relative;
+  top: -1em;
+  margin-left: 12em;
+  margin-bottom: -1em;
+}
+.download {
+  background: #DDD;
+}
+a, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: rgb(20,70,225);
+}
+a:hover {
+  text-decoration: underline;
+}

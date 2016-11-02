@@ -58,9 +58,14 @@
         <br/>
 </template>
 
-<template name="dataView">
-        <h1>Data View</h1>
+<template name="sianalyse">
+        <h1>Single Image Analyse</h1>
         <hr align="center" width='100%'>
+        <div id="images">
+          <ul>
+            <li>{{>analyseSingle}}</li>
+          </ul>
+        </div>
         <br/>
 </template>
 
@@ -92,7 +97,7 @@
  </template>
 
  <template name="choice4">
-   <button id="gotToDV" class="buttonContainer1">Data View</button>
+   <button id="gotToSIA" class="buttonContainer1">Single Image</button>
  </template>
 
  <template name="imageUpload1">
@@ -107,13 +112,11 @@
    <button id="goToHome" class="buttonContainer2">Return Home</button>
  </template>
 
-<!-- <template name="info">
-  <h1>The Coffee Shop</h1>
-  <ul>
-        <li><a href={{pathFor route='home'}}> Home </a></li>
-        <li><a href={{pathFor route='sidebyside'}}> Side By Side Comparison </a></li>
-        <li><a href={{pathFor route='folder'}}> Folder </a></li>
-        <li><a href={{pathFor route='weblink'}}> Web Link </a></li>
-        <li><a href={{pathFor route='history'}}> History </a></li>
-  </ul>
-</template> -->
+ <template name="analyseSingle">
+   <button id="rgbanalyse" class="buttonContainer1">Analys Image Test</button>
+ </template>
+
+
+<template name="'UML_Prototype'">
+  
+</template>
