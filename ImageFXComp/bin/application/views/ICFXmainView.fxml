@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="ICFXBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: LIGHTGREY;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ICController">
+   <center>
+      <GridPane fx:id="ICFXGridPane" alignment="CENTER" gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1200.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="300.0" prefHeight="357.0" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="307.0" prefHeight="343.0" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
+        </rowConstraints>
+         <children>
+            <BorderPane fx:id="imageWindowPane" layoutY="30.0" GridPane.rowIndex="1">
+               <center>
+                  <AnchorPane fx:id="ILap" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <children>
+                        <ImageView fx:id="mainImageLeft" fitHeight="400.0" fitWidth="700.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../../../res/Material-Design-25.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </center>
+               <top>
+                  <Label fx:id="imageNameLabelLeft" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" style="-fx-background-color: TEAL;" text="Left Image" textAlignment="CENTER" textFill="#33b5ac" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </top>
+               <left>
+                  <Pane fx:id="ILbpL" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane fx:id="ILbpR" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <Pane fx:id="ILbpB" prefHeight="25.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+            <AnchorPane fx:id="LeftHistoAp" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: LIGHTGREY;" GridPane.rowIndex="2">
+               <children>
+                  <LineChart fx:id="RGBhistogramLeft" title="RGB Histogram" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+            <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" text="Menu" textAlignment="CENTER" textFill="#04f949">
+              <items>
+                <MenuItem fx:id="miBrowseButton" mnemonicParsing="false" onAction="#browseImage" text="Browse Image" />
+                  <MenuItem fx:id="saveLeftDataButton" mnemonicParsing="false" onAction="#saveLeftImageData" text="Save Left Image Data" />
+                  <MenuItem fx:id="saveRightDataButton" mnemonicParsing="false" onAction="#saveRightImageData" text="Save Right Image Data" />
+                <MenuItem fx:id="miDataButton" mnemonicParsing="false" onAction="#showData" text="Look Up Data" />
+                  <MenuItem fx:id="miCloseButton" mnemonicParsing="false" onAction="#closeProgram" text="Close Program" />
+              </items>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </MenuButton>
+            <Button fx:id="LoadImageRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rightImageLoad" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" text="Load Comparable Image " textFill="#04f949" GridPane.columnIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Pane fx:id="rightHistobuttonpane" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" GridPane.rowIndex="3" />
+            <Button fx:id="AlphaButton" contentDisplay="CENTER" layoutX="10.0" layoutY="680.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeAlpha" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Alpha" textFill="#04f949" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="RedButton" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeRed" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Red" textFill="#04f949" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="BlueButton" contentDisplay="CENTER" layoutX="10.0" layoutY="680.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeBlue" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Blue" textFill="#04f949" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="GreenButton" contentDisplay="CENTER" layoutX="310.0" layoutY="680.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeGreen" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Green" textFill="#04f949" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="450.0" />
+               </GridPane.margin>
+            </Button>
+            <BorderPane fx:id="imageWindowPane1" layoutY="30.0" style="-fx-background-color: LIGHTGREY;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <center>
+                  <AnchorPane fx:id="IRap" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="mainImageRight" fitHeight="400.0" fitWidth="700.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@../../../res/google-material-design-wallpaper-17.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </center>
+               <top>
+                  <Label fx:id="imageNameLabelRight" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: TEAL;" text="Right Image" textAlignment="CENTER" textFill="#33b5ac" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </top>
+               <left>
+                  <Pane fx:id="IRbpL" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane fx:id="IRbpR" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <Pane fx:id="IRbpB" prefHeight="25.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+            <AnchorPane fx:id="rightHistoAP" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: LIGHTGREY;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <LineChart fx:id="RGBhistogramRight" title="RGB Histogram" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+            <Pane fx:id="rightLineChartButtonPane" layoutX="10.0" layoutY="680.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="AlphaButtonRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeAlphaRight" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Alpha" textFill="#04f949" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+            <Button fx:id="RedButtonRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeRedRight" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Red" textFill="#04f949" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="BlueButtonRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeBlueRight" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Blue" textFill="#04f949" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="GreenButtonRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeGreenRight" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Green" textFill="#04f949" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

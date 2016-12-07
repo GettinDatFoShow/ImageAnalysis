@@ -40,6 +40,7 @@ public class ICImage extends Component {
 	public BufferedImage image;
 	public Color color;
 	public File imageFile;
+	public double[] IcolorPercentages = new double[4];
 	
 	// constructor begin 
 	public ICImage(File file){
@@ -195,14 +196,41 @@ public class ICImage extends Component {
 			this.iBbin[i]=0;
 		}
 		int end = alphaArray.length;
+		
 		for(int i = 0; i < end ; i++){
-			this.iAbin[alphaArray[i]]++;
-			this.iRbin[redArray[i]]++;
-			this.iGbin[greenArray[i]]++;
-			this.iBbin[blueArray[i]]++;
+			
+			this.iAbin[alphaArray[i]] += 1 ;
+			this.iRbin[redArray[i]] += 1;
+			this.iGbin[greenArray[i]] += 1;
+			this.iBbin[blueArray[i]] += 1 ;
 		}
 	}
+	
+//	public void setIcolorPercentages(){
+//    	double red = 0;
+//    	double alpha = 0;
+//    	double blue = 0;
+//    	double green = 0;
+//    	int end = this.iAArray.length;
+//    	for(int i = 0; i < 255; i++){
+//    		alpha += this.iAArray[i];
+//    		red += this.iRArray[i];
+//    		blue += this.iBArray[i];
+//    		green += this.iGArray[i];	
+//    	}
+//    	System.out.println(alpha);
+//    	System.out.println(red);
+//    	System.out.println(green);
+//    	System.out.println(blue);
+//
+//    	this.IcolorPercentages[0] = alpha;
+//    	this.IcolorPercentages[1] = red;
+//    	this.IcolorPercentages[2] = green;
+//    	this.IcolorPercentages[3] = blue;
+//	}
+	
 
+	
 	public void setIBArray(int[] blueArray){
 		this.iBArray = blueArray;
 	}
@@ -333,6 +361,10 @@ public class ICImage extends Component {
 		return this.iBbin;
 	}
 	
+//	public double[] getIcolorPercentages(){
+////		this.setIcolorPercentages();
+//		return this.IcolorPercentages;
+//	}
 
 	
 } // ************************    end of ICImage Class    *****************************

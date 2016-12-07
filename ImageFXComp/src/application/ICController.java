@@ -13,7 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -27,61 +30,109 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.*;
 
 public class ICController implements Initializable {
 	
-	public final int Yval = 255;
-	public int Xval;
-	public ICImage image;
-	public NumberAxis xAxis = new NumberAxis();
-	public CategoryAxis yAxis = new CategoryAxis();
+	public ICImage imageLeft;
+	public ICImage imageRight;
 	public FileChooser fileChooser = new FileChooser();
 	public Desktop desktop = Desktop.getDesktop();
-//	public ObservableList<XYChart.Series<String, Double>> ICchartData;
 	public Main main;
-	public static boolean running;
-	long[] alphaBin;
-	long[] redBin;
-	long[] greenBin;
-	long[] blueBin;
-	double percentRed;
-	double percentGreen;
-	double percentBlue;
-	double percentTransparent;
-	XYChart.Series seriesAlpha = new XYChart.Series();
-	XYChart.Series seriesRed = new XYChart.Series();
-	XYChart.Series seriesGreen = new XYChart.Series();
-	XYChart.Series seriesBlue = new XYChart.Series();
 	
+	long[] alphaBinL;
+	long[] redBinL;
+	long[] greenBinL;
+	long[] blueBinL;
+
+	long[] alphaBinR;
+	long[] redBinR;
+	long[] greenBinR;
+	long[] blueBinR;
+	final int minVal = 2000;
+	public XYChart.Series seriesAlpha;
+	public XYChart.Series seriesRed;
+	public XYChart.Series seriesGreen;
+	public XYChart.Series seriesBlue;
+	public XYChart.Series seriesApr;
+	public XYChart.Series seriesRpr;
+	public XYChart.Series seriesGpr;
+	public XYChart.Series seriesBpr;
+	
+	public XYChart.Series EseriesA = new XYChart.Series<>();
+	public XYChart.Series EseriesR = new XYChart.Series<>();
+	public XYChart.Series EseriesG = new XYChart.Series<>();
+	public XYChart.Series EseriesB = new XYChart.Series<>();
+	
+	public XYChart.Series EseriesAr = new XYChart.Series<>();
+	public XYChart.Series EseriesRr = new XYChart.Series<>();
+	public XYChart.Series EseriesGr = new XYChart.Series<>();
+	public XYChart.Series EseriesBr = new XYChart.Series<>();
+
+	
+	private boolean isAlpha;
+	private boolean isRed;
+	private boolean isGreen;
+	private boolean isBlue;
+	
+	private boolean isAlphaR;
+	private boolean isRedR;
+	private boolean isGreenR;
+	private boolean isBlueR;
+	
+	public boolean runningLeft;
+	public boolean runningRight;
+	
+	
+	
+	// FXML to FX VARIABLE SETUP
+
     @FXML
-    private BorderPane ICFXBorderPain;
+    private BorderPane ICFXBorderPane;
 
     @FXML
     private GridPane ICFXGridPane;
 
     @FXML
-    private Button colorChartButton;
+    private BorderPane imageWindowPane;
 
     @FXML
-    private Button RGBhistoButton;
+    private AnchorPane ILap;
 
     @FXML
-    private Button RGBpGraphButton;
+    private ImageView mainImageLeft;
 
     @FXML
-    private PieChart RGBpieChart;
+    private Label imageNameLabelLeft;
 
     @FXML
-    private BarChart<?, ?> RGBpGraph;
+    private Pane ILbpL;
 
     @FXML
-    private LineChart<String, Number> RGBhistogram;
+    private Pane ILbpR;
+
+    @FXML
+    private Pane ILbpB;
+
+    @FXML
+    private AnchorPane LeftHistoAp;
+
+    @FXML
+    private LineChart<?, ?> RGBhistogramLeft;
 
     @FXML
     private MenuButton menuButton;
+
+    @FXML
+    private MenuItem saveLeftDataButton;
+
+    @FXML
+    private MenuItem saveRightDataButton;
 
     @FXML
     private MenuItem miBrowseButton;
@@ -93,21 +144,101 @@ public class ICController implements Initializable {
     private MenuItem miCloseButton;
 
     @FXML
-    private ImageView mainImage;
+    private Button LoadImageRight;
 
     @FXML
-    private Label imageNameLabel;
+    private Pane rightHistobuttonpane;
+
+    @FXML
+    private Button AlphaButton;
+
+    @FXML
+    private Button RedButton;
+
+    @FXML
+    private Button BlueButton;
+
+    @FXML
+    private Button GreenButton;
+
+    @FXML
+    private BorderPane imageWindowPane1;
+
+    @FXML
+    private AnchorPane IRap;
+
+    @FXML
+    private ImageView mainImageRight;
+
+    @FXML
+    private Label imageNameLabelRight;
+
+    @FXML
+    private Pane IRbpL;
+
+    @FXML
+    private Pane IRbpR;
+
+    @FXML
+    private Pane IRbpB;
+
+    @FXML
+    private AnchorPane rightHistoAP;
+
+    @FXML
+    private LineChart<?, ?> RGBhistogramRight;
+
+    @FXML
+    private Pane rightLineChartButtonPane;
+
+    @FXML
+    private Button AlphaButtonRight;
+
+    @FXML
+    private Button RedButtonRight;
+
+    @FXML
+    private Button BlueButtonRight;
+
+    @FXML
+    private Button GreenButtonRight;
+
+   
+    
+    
     
     void setMain(Main main){
     	this.main = main;
     }
     
+    
+    
+// *****************************************************************
+//     IMAGE METHODS 
+    
     @FXML
     void browseImage(ActionEvent event) {
-    	this.getImageFile();
+    	this.getImageFileLeft();
+        this.setNewImageView();
+        System.out.println("setting Left image label..");
+        this.imageNameLabelLeft.setText(this.imageLeft.getIName());
+        System.out.println("Left image lable set");
+        this.setRGBhistoLeft();
+
     }
     
-    private void getImageFile(){
+    @FXML
+    void rightImageLoad(ActionEvent event) {
+    	this.getImageFileRight();
+    	this.setNewImageViewRight();  
+        System.out.println("setting Right image label..");
+    	this.imageNameLabelRight.setText(this.imageRight.getIName());
+        System.out.println("Right image lave set");
+    	this.setRGBhistoRight();    
+
+    }
+    
+    private void getImageFileRight(){
     	fileChooser.setTitle("Open Image File");
         fileChooser.setInitialDirectory(
                 new File(System.getProperty("user.home"))
@@ -120,102 +251,303 @@ public class ICController implements Initializable {
         File file = fileChooser.showOpenDialog(application.Main.MainStage);
         if (file != null) {
             try {
-				openFile(file);
+				openFileRight(file);
 			} catch (IOException e) {
 				e.printStackTrace();
-				this.getImageFile();
+				this.getImageFileRight();
 			}
         }
-        this.setNewImageView();
-        this.setRGBhisto();
-//        this.setRGBhisto();
-//        this.setRGBpieChart();
-//        this.setRGBpGraph();
     }
     
-//    private void setRGBpGraph() {
-//    	this.RGBhistogram.getData().addAll(this.getICchartData());
-//    }
-
-	private void setRGBpieChart() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void setRGBhisto() {
-    	if(this.running){
-    		resetICchartData();
-    	}
-    	else{
-    		//    	this.ICchartData = FXCollections.observableArrayList();
-        	setICchartData();
-    	}
+    private void getImageFileLeft(){
+    	fileChooser.setTitle("Open Image File");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+            ); 
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+            );
+        File file = fileChooser.showOpenDialog(application.Main.MainStage);
+        if (file != null) {
+            try {
+				openFileLeft(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+				this.getImageFileLeft();
+			}
+        }
     }
-		
-	private void openFile(File file) throws IOException {
-        this.image = new ICImage(file);
+
+	private void openFileLeft(File file) throws IOException {
+        this.imageLeft = new ICImage(file);
+    }
+	
+	private void openFileRight(File file) throws IOException {
+        this.imageRight = new ICImage(file);
     }
     
     private void setNewImageView(){
-    	Image image = new Image(this.image.getIURL());
-    	this.mainImage.setImage(image);
+    	Image image = new Image(this.imageLeft.getIURL());
+    	this.mainImageLeft.setImage(image);
+    	System.out.println("Left Image Set");
+    }
+    
+    private void setNewImageViewRight(){
+    	Image image = new Image(this.imageRight.getIURL());
+    	this.mainImageRight.setImage(image);
+    	System.out.println("Right Image Set");
     }
     
     
-    private void resetICchartData(){
-		this.RGBhistogram.getData().removeAll(seriesRed,seriesAlpha,seriesGreen,seriesBlue);
-    }
+    
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+//     HISTOGRAM METHODS     
     
     
-    private void setICchartData(){
-//    	this.ICchartData = FXCollections.observableArrayList();
-    	XYChart.Series seriesAlpha = new XYChart.Series();
-    	XYChart.Series seriesRed = new XYChart.Series();
-    	XYChart.Series seriesGreen = new XYChart.Series();
-    	XYChart.Series seriesBlue = new XYChart.Series();
+    private void setRGBhistoRight(){
+    	System.out.println("setting up RGB histogram right...");
+    	if(this.runningRight){
+    		resetRightHistoChartData();
+    	}else{
 
-		seriesAlpha.setName("Alpha");
-		seriesRed.setName("Red");
-		seriesGreen.setName("Green");
-		seriesBlue.setName("Blue");
-
-		alphaBin = this.image.getAlphaBin();
-		redBin = this.image.getRedBin();
-		greenBin = this.image.getGreenBin();
-		blueBin = this.image.getBlueBin();
+			this.seriesApr = new XYChart.Series<>();
+			this.seriesRpr = new XYChart.Series<>();
+			this.seriesGpr = new XYChart.Series<>();
+			this.seriesBpr = new XYChart.Series<>();
 			
+			this.seriesApr.setName("Alpha");
+			this.seriesRpr.setName("Red");
+			this.seriesGpr.setName("Green");
+			this.seriesBpr.setName("Blue");
+    		this.EseriesAr.setName("Alpha");
+    		this.EseriesRr.setName("Red");
+    		this.EseriesGr.setName("Green");
+    		this.EseriesBr.setName("Blue");
+			
+			this.setRightHistoChartData();
+			this.runningRight = true;
+    	}
+		this.isBlueR = true;
+		this.isAlphaR = true;
+		this.isRedR = true;
+		this.isGreenR = true;
+    }
+    
+    private void setRightHistoChartData(){
+    	System.out.println("setting up RGB histogram right chart data..");
+		
+    	this.alphaBinR = this.imageRight.getAlphaBin();
+		this.redBinR = this.imageRight.getRedBin();
+		this.greenBinR = this.imageRight.getGreenBin();
+		this.blueBinR = this.imageRight.getBlueBin();
+	
 		for(int i = 0; i < 255; i++){
-			seriesAlpha.getData().add(new XYChart.Data(Integer.toString(i+1), alphaBin[i]));
-			seriesRed.getData().add(new XYChart.Data(Integer.toString(i+1), redBin[i]));
-			seriesGreen.getData().add(new XYChart.Data(Integer.toString(i+1), greenBin[i]));
-			seriesBlue.getData().add(new XYChart.Data(Integer.toString(i+1), blueBin[i]));
+			if(this.alphaBinR[i] > minVal){
+			seriesApr.getData().addAll(new XYChart.Data(Integer.toString(i+1), alphaBinR[i]));
+			this.EseriesAr.getData().add(new XYChart.Data(Integer.toString(i), 0.0));
 			}
-		this.RGBhistogram.getData().addAll(seriesRed,seriesAlpha,seriesGreen,seriesBlue);
-		this.running = true;
-    }
-    
-//    private ObservableList<XYChart.Series<String, Double>> getICchartData(){
-//    	return this.ICchartData;
-//    }
-    
-    
-    @FXML
-    void saveHistogram(ActionEvent event) {
-//    	if(running){
-//    		running = false;
-//    		this.RGBhistogram.getData().removeAll(seriesRed,seriesAlpha,seriesGreen,seriesBlue);
-//    	}
-    }
+			if(this.redBinR[i] > minVal ){
+				seriesRpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), redBinR[i]));
+				this.EseriesRr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+			}
+			if(this.greenBinR[i] > minVal){
+				seriesGpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), greenBinR[i]));
+				this.EseriesGr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+			}
+			if(this.blueBinR[i] > minVal){
+				seriesBpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), blueBinR[i]));
+				this.EseriesBr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
 
-    @FXML
-    void changePercentView(ActionEvent event) {
+			}
+			}
 
+		this.RGBhistogramRight.getData().addAll(seriesRpr,seriesApr,seriesGpr,seriesBpr);
+		System.out.println("Right Histogram Data Set.");
     }
 
-    @FXML
-    void changePieView(ActionEvent event) {
+    private void resetRightHistoChartData(){
     	
+    	System.out.println("reseting right histogram data...");
+    	
+		this.seriesApr.getData().clear();
+		this.seriesRpr.getData().clear();
+		this.seriesGpr.getData().clear();
+		this.seriesBpr.getData().clear();
+		this.RGBhistogramRight.getData().clear();
+		
+    	this.seriesApr = new XYChart.Series<>();
+    	this.seriesRpr = new XYChart.Series<>();
+    	this.seriesGpr = new XYChart.Series<>();
+    	this.seriesBpr = new XYChart.Series<>();
+    	
+		this.seriesApr.setName("Alpha");
+		this.seriesRpr.setName("Red");
+		this.seriesGpr.setName("Green");
+		this.seriesBpr.setName("Blue");
+		this.EseriesAr.setName("Alpha");
+		this.EseriesRr.setName("Red");
+		this.EseriesGr.setName("Green");
+		this.EseriesBr.setName("Blue");
+		
+		this.alphaBinR = this.imageRight.getAlphaBin();
+		this.redBinR = this.imageRight.getRedBin();
+		this.greenBinR = this.imageRight.getGreenBin();
+		this.blueBinR = this.imageRight.getBlueBin();
+	
+		for(int i = 0; i < 255; i++){
+			
+			if(this.alphaBinR[i] > minVal){
+				seriesApr.getData().addAll(new XYChart.Data(Integer.toString(i+1), alphaBinR[i]));
+				this.EseriesAr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+
+			}
+			if(this.redBinR[i] > minVal ){
+				seriesRpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), redBinR[i]));
+				this.EseriesRr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+	
+			}
+			if(this.greenBinR[i] > minVal){
+				seriesGpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), greenBinR[i]));
+				this.EseriesGr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+	
+			}
+			if(this.blueBinR[i] > minVal){
+				seriesBpr.getData().addAll(new XYChart.Data(Integer.toString(i+1), blueBinR[i]));
+				this.EseriesBr.getData().add(new XYChart.Data(Integer.toString(i+1), 0.0));
+
+			}
+		}
+
+		this.RGBhistogramRight.getData().addAll(seriesRpr ,seriesApr,seriesGpr,seriesBpr);
+		System.out.println("Right Histogram data reset complete");
+ 
     }
+	
+    
+    
+    
+    
+    
+	private void setRGBhistoLeft() {
+		System.out.println("Setting up Left RGB histogram...");
+    	if(this.runningLeft){
+    		resetLeftHistoChartData();
+    	}
+    	else{
+    		
+        	this.seriesAlpha = new XYChart.Series<>();
+        	this.seriesRed = new XYChart.Series<>();
+        	this.seriesGreen = new XYChart.Series<>();
+        	this.seriesBlue = new XYChart.Series<>();
+
+    		this.seriesAlpha.setName("Alpha");
+    		this.seriesRed.setName("Red");
+    		this.seriesGreen.setName("Green");
+    		this.seriesBlue.setName("Blue");
+    		this.EseriesA.setName("Alpha");
+    		this.EseriesR.setName("Red");
+    		this.EseriesG.setName("Green");
+    		this.EseriesB.setName("Blue");
+    		
+    		
+        	this.setLeftHistoChartData();
+        	this.runningLeft = true;
+    	}
+    	
+		this.isBlue = true;
+		this.isAlpha = true;
+		this.isRed = true;
+		this.isGreen = true;
+    }
+		
+    private void setLeftHistoChartData(){
+    	System.out.println("setting up left histogram chart data..");
+    	
+		this.alphaBinL = this.imageLeft.getAlphaBin();
+		this.redBinL = this.imageLeft.getRedBin();
+		this.greenBinL = this.imageLeft.getGreenBin();
+		this.blueBinL = this.imageLeft.getBlueBin();	
+
+		for(int i = 0; i < 255; i++){
+			if(this.alphaBinL[i] > minVal){
+				seriesAlpha.getData().addAll(new XYChart.Data(Integer.toString(i+1), alphaBinL[i]));
+				EseriesA.getData().addAll(new XYChart.Data(Integer.toString(i), 0));
+				}
+			if(this.redBinL[i] > minVal){
+				seriesRed.getData().addAll(new XYChart.Data(Integer.toString(i+1), redBinL[i]));
+				EseriesR.getData().addAll(new XYChart.Data(Integer.toString(i), 0));	
+			}
+			if(this.greenBinL[i] > minVal){
+				seriesGreen.getData().addAll(new XYChart.Data(Integer.toString(i+1), greenBinL[i]));
+				EseriesG.getData().addAll(new XYChart.Data(Integer.toString(i), 0));
+			}
+			if(this.blueBinL[i] > minVal){
+				seriesBlue.getData().addAll(new XYChart.Data(Integer.toString(i+1), blueBinL[i]));
+				EseriesB.getData().addAll(new XYChart.Data(Integer.toString(i), 0));	
+			}
+			}
+
+		this.RGBhistogramLeft.getData().addAll(seriesRed, seriesAlpha, seriesGreen, seriesBlue);
+		System.out.println("Left Histogram Data Set.");
+    }
+    
+    
+    private void resetLeftHistoChartData(){
+    	System.out.println("reseting left histo data...");
+		this.seriesAlpha.getData().clear();
+		this.seriesRed.getData().clear();
+		this.seriesGreen.getData().clear();
+		this.seriesBlue.getData().clear();
+		this.RGBhistogramLeft.getData().clear();
+
+		
+    	this.seriesAlpha = new XYChart.Series<>();
+    	this.seriesRed = new XYChart.Series<>();
+    	this.seriesGreen = new XYChart.Series<>();
+    	this.seriesBlue = new XYChart.Series<>();
+		
+    	this.seriesAlpha.setName("Alpha");
+		this.seriesRed.setName("Red");
+		this.seriesGreen.setName("Green");
+		this.seriesBlue.setName("Blue");
+		this.EseriesAr.setName("Alpha");
+		this.EseriesRr.setName("Red");
+		this.EseriesGr.setName("Green");
+		this.EseriesBr.setName("Blue");
+		this.alphaBinL = this.imageLeft.getAlphaBin();
+		this.redBinL = this.imageLeft.getRedBin();
+		this.greenBinL = this.imageLeft.getGreenBin();
+		this.blueBinL = this.imageLeft.getBlueBin();
+	
+		for(int i = 0; i < 255; i++){
+			if(this.alphaBinL[i] > minVal){
+				seriesAlpha.getData().addAll(new XYChart.Data(Integer.toString(i+1), alphaBinL[i]));
+				EseriesA.getData().addAll(new XYChart.Data(Integer.toString(i), 0));
+	
+			}
+			if(this.redBinL[i] > minVal){
+				seriesRed.getData().addAll(new XYChart.Data(Integer.toString(i+1), redBinL[i]));
+				EseriesR.getData().addAll(new XYChart.Data(Integer.toString(i), 0));	
+
+			}
+			if(this.greenBinL[i] > minVal){
+				seriesGreen.getData().addAll(new XYChart.Data(Integer.toString(i+1), greenBinL[i]));
+				EseriesG.getData().addAll(new XYChart.Data(Integer.toString(i), 0));
+	
+			}
+			if(this.blueBinL[i] > minVal){
+				seriesBlue.getData().addAll(new XYChart.Data(Integer.toString(i+1), blueBinL[i]));
+				EseriesB.getData().addAll(new XYChart.Data(Integer.toString(i), 0));	
+	
+			}
+		}
+
+		this.RGBhistogramLeft.getData().addAll(seriesRed ,seriesAlpha,seriesGreen,seriesBlue);
+		System.out.println("left Histogram data reset complete");
+    }
+    
 
     @FXML
     void closeProgram(ActionEvent event) {
@@ -223,35 +555,142 @@ public class ICController implements Initializable {
     }
 
     @FXML
-    void showData(ActionEvent event) {
+    void showData(ActionEvent event) throws IOException {
+    	Parent dataTable = FXMLLoader.load(Main.class.getResource("views/ICFXDataTable.fxml"));
+    	Scene DataTableScene = new Scene(dataTable);
+    	this.main.MainStage.setScene(DataTableScene);
+    	this.main.MainStage.setResizable(true);
+    	this.main.MainStage.setMaximized(false);
+    	this.main.MainStage.show();
+//    	dataStage.setScene(DataTableScene);
+////    	dataStage.setFullScreen(true);
+//    	dataStage.setResizable(true);
+//    	dataStage.show();
+//    	
+
+    }
+    
+    @FXML
+    void changeAlpha(ActionEvent event) {
+    	if(isAlpha){
+    		this.RGBhistogramLeft.getData().set(1, this.EseriesA);
+//    		this.RGBhistogramLeft.getData().remove(this.seriesAlpha);
+    		this.isAlpha = false;
+    	}else{
+    		this.RGBhistogramLeft.getData().set(1, this.seriesAlpha);
+//    		this.RGBhistogramLeft.getData().addAll(this.seriesAlpha);
+    		this.isAlpha = true;
+    	}
+    }
+    
+    @FXML
+    void changeAlphaRight(ActionEvent event) {
+    	if(isAlphaR){
+   // 		this.RGBhistogramRight.getData().remove(this.seriesApr);
+    		this.RGBhistogramRight.getData().set(1, this.EseriesAr);
+    		this.isAlphaR = false;
+    	}else{
+    		this.RGBhistogramRight.getData().set(1, this.seriesApr);
+    		this.isAlphaR = true;
+    	}
+    }
+    
+    @FXML
+    void changeRed(ActionEvent event) {
+    	if(isRed){
+    		this.RGBhistogramLeft.getData().set(0, this.EseriesR);
+//    		this.RGBhistogramLeft.getData().remove(this.seriesRed);
+    		this.isRed = false;
+    	}else{
+    		this.RGBhistogramLeft.getData().set(0, this.seriesRed);
+//    		this.RGBhistogramLeft.getData().addAll(this.seriesRed);
+    		this.isRed = true;
+    	}
+    }
+    @FXML
+    void changeRedRight(ActionEvent event) {
+    	if(isRedR){
+    		this.RGBhistogramRight.getData().set(0, this.EseriesRr);
+//    		this.RGBhistogramRight.getData().remove(this.seriesRpr);
+    		this.isRedR = false;
+    	}else{
+    		this.RGBhistogramRight.getData().set(0, this.seriesRpr);
+   // 		this.RGBhistogramRight.getData().addAll(this.seriesRpr);
+    		this.isRedR = true;
+    	}
+    }
+    
+    @FXML
+    void changeBlue(ActionEvent event) {
+    	if(isBlue){
+    		this.RGBhistogramLeft.getData().set(3, this.EseriesB);
+//    		this.RGBhistogramLeft.getData().remove(this.seriesBlue);
+    		this.isBlue = false;
+    	}else{
+    		this.RGBhistogramLeft.getData().set(3, this.seriesBlue);
+//    		this.RGBhistogramLeft.getData().addAll(this.seriesBlue);
+    		this.isBlue = true;
+    	}
+    }
+
+
+    @FXML
+    void changeBlueRight(ActionEvent event) {
+    	if(isBlueR){
+    		this.RGBhistogramRight.getData().set(3, this.EseriesBr);
+//    		this.RGBhistogramRight.getData().remove(this.seriesBpr);
+    		this.isBlueR = false;
+    	}else{
+    		this.RGBhistogramRight.getData().set(3, this.seriesBpr);
+//    		this.RGBhistogramRight.getData().addAll(this.seriesBpr);
+    		this.isBlueR = true;
+    	}
+    }
+
+    
+    @FXML
+    void changeGreen(ActionEvent event) {
+    	if(isGreen){
+    		this.RGBhistogramLeft.getData().set(2, this.EseriesG);
+//    		this.RGBhistogramLeft.getData().remove(this.seriesGreen);
+    		this.isGreen = false;
+    	}else{
+    		this.RGBhistogramLeft.getData().set(2, this.seriesGreen);
+//    		this.RGBhistogramLeft.getData().addAll(this.seriesGreen);
+    		this.isGreen = true;
+    	}
+    }
+
+    @FXML
+    void changeGreenRight(ActionEvent event) {
+    	if(isGreenR){
+    		this.RGBhistogramRight.getData().set(2, this.EseriesGr);
+//    		this.RGBhistogramRight.getData().remove(this.seriesGpr);
+    		this.isGreenR = false;
+    	}else{
+    		this.RGBhistogramRight.getData().set(2, this.seriesGpr);
+//    		this.RGBhistogramRight.getData().addAll(this.seriesGpr);
+    		this.isGreenR = true;
+    	}
+    }
+    
+    @FXML
+    void saveLeftImageData(ActionEvent event) {
 
     }
 
+    @FXML
+    void saveRightImageData(ActionEvent event) {
+
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Starting up ImageFXcompare....");
-		this.running = false;
+		this.runningLeft = false;
+		this.runningRight = false;
+		
 	}
 
 }
 
-
-// FOR A USER TO SAVE THE IMAGE!!! 
-//MenuItem cmItem2 = new MenuItem("Save Image");
-//cmItem2.setOnAction(new EventHandler<ActionEvent>() {
-//    public void handle(ActionEvent e) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Save Image");
-//        System.out.println(pic.getId());
-//        File file = fileChooser.showSaveDialog(stage);
-//        if (file != null) {
-//            try {
-//                ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
-//                    null), "png", file);
-//            } catch (IOException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//        }
-//    }
-//}
-//);

@@ -48,10 +48,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.MainStage = primaryStage;
-		Parent root = FXMLLoader.load(getClass().getResource("ICFXmainView.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("views/ICFXmainView.fxml"));
 		this.MainStage.setTitle("ImageFX Compare");
 		this.MainStage.setScene(new Scene(root));
-		this.MainStage.setMaximized(true);
+//		this.MainStage.setMaximized(true);
 		this.MainStage.show();
 	}
 	
