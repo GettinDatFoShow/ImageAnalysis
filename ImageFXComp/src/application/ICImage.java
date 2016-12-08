@@ -2,8 +2,10 @@ package application;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -30,7 +32,7 @@ public class ICImage extends Component {
 	public int[] iAArray;
 	public int[][] iColorPixelArray;
 	public int[][][] iColorIntArray;
-	public int[] totalColors;
+	public ArrayList<String> totalColors = new ArrayList<String>();
 	public int iAbin[];
 	public int iRbin[];
 	public int iGbin[];
@@ -78,7 +80,9 @@ public class ICImage extends Component {
 	{ 
 		this.setISource(imageSource); 				// link to image
 		this.createBImage(); 						// create buffered image
-		
+		this.setIDate();
+		this.findTotalColors();
+		this.setIcolorPercentages();
 	} 
 	
 	public ICImage(String imageSource, String imageName) 
@@ -86,6 +90,9 @@ public class ICImage extends Component {
 		this.setISource(imageSource); 				// link to image
 		this.createBImage(); 						// create buffered image
 		this.setIName(imageName);
+		this.setIDate();
+		this.findTotalColors();
+		this.setIcolorPercentages();
 	}
 	
 	// constructor end
@@ -126,7 +133,6 @@ public class ICImage extends Component {
 		}		
 		this.setIHeight(image);
 		this.setIWidth(image);
-		this.findTotalColors();
 		this.setColorArrays(image);
 		this.setIDate();
 	}
@@ -188,37 +194,10 @@ public class ICImage extends Component {
 	      setIGArray(greenArray);
 	      setIBArray(blueArray);
 	      setBins(alphaArray, redArray, greenArray, blueArray);
-	      findTotalColors();
-	      setIcolorPercentages();
 	     
-	      
 	}
 	
-	public void findTotalColors(){
-		int end = this.iRArray.length;
-		int result[] = new int[end];
-		int total;
-		for(int i = 0; i < end; i++){
-			total = 0;
-			total = this.iRArray[i]*1000;
-			total += this.iGArray[i]*1000;
-			total += this.iBArray[i];
-			result[i] = total;
-		}
-		
-		Arrays.sort(result);
-		int pointer = 0;
-		for(int i = 0; i < end; i++){
-			if(result[i] != this.totalColors[pointer]){
-				this.totalColors[pointer] = result[i];	
-				pointer+=1;
-			}
-			else{
-				//pass
-			}
-		}
-		
-	}
+
 	
 	
 	public void setIName(String imageName){
@@ -264,6 +243,42 @@ public class ICImage extends Component {
 		}
 	}
 	
+	
+	public void findTotalColors(){
+		int end = this.getPixelTotal();
+		String red= "";
+		String green="";
+		String blue="";
+		ArrayList<String> result = new ArrayList<String>();
+		int total;
+		
+		
+		
+		for(int i = 0; i < end; i++){
+			red= "";
+			green="";
+			blue="";
+			red = Integer.toString(this.iRArray[i]);
+			green = Integer.toString(this.iGArray[i]);
+			blue = Integer.toString(this.iBArray[i]);
+			result.add(red+green+blue);
+		}
+		
+		Collections.sort(result);;
+		int pointer = 0;
+		this.totalColors.add(result.get(0));
+		for(int i = 0; i < end; i++){
+			if(result.get(i).equals(this.totalColors.get(pointer))){
+
+			}
+			else{
+				this.totalColors.add(result.get(i));	
+				pointer +=1;
+			}
+		}
+		
+	}
+	
 	public void setIcolorPercentages(){
     	double red = 0;
     	double alpha = 0;
@@ -280,6 +295,7 @@ public class ICImage extends Component {
     		green += this.iGArray[i];
     		this.totalColor = red + blue + green;
     	}
+    	
 //    	System.out.println(alpha);
 //    	System.out.println(red);
 //    	System.out.println(green);
@@ -291,14 +307,17 @@ public class ICImage extends Component {
     	this.percentRed = red/totalColor*100;
     	this.percentGreen = green/totalColor*100;
     	this.percentBlue = blue/totalColor*100;
-    	this.totalColorPercentage =  (double) this.totalColors.length/this.getPixelTotal()*100;
+    	System.out.println(this.getPixelTotal());
+    	System.out.println(this.totalColors.size());
+    	this.colorFulness =  (double) this.totalColors.size() / (double) this.getPixelTotal()*100;
     	
     	
     	System.out.println(this.transparentcy);
     	System.out.println(this.percentRed);
     	System.out.println(this.percentGreen);
     	System.out.println(this.percentBlue);
-    	System.out.println(this.totalColor);
+    	System.out.print("colorfulness: ");
+    	System.out.println(this.colorFulness);
     	
     	this.percentages[0] = this.transparentcy;
     	this.percentages[1] = this.percentRed;
@@ -320,6 +339,7 @@ public class ICImage extends Component {
 	public void setPixelTotal(int counter){
 		this.pixelTotal = counter;
 	}
+	
 	
 //  ACCESSORS ======  ( GET METHODS )	======
 	public String getIURL(){

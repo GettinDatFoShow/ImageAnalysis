@@ -55,7 +55,7 @@ public class ICController implements Initializable {
 	int[] greenBinR;
 	int[] blueBinR;
 	
-	final int minVal = 2000;
+	final int minVal = 0;
 	public XYChart.Series seriesAlpha;
 	public XYChart.Series seriesRed;
 	public XYChart.Series seriesGreen;
@@ -330,6 +330,7 @@ public class ICController implements Initializable {
         this.RedPercentLabelL.setText(Double.toString(this.imageLeft.percentRed));
         this.GreenPercentLabelL.setText(Double.toString(this.imageLeft.percentGreen));
         this.BluePercentLabelL.setText(Double.toString(this.imageLeft.percentBlue));
+        this.ColorPercentageLabelL.setText(Double.toString(this.imageLeft.colorFulness));
     }
 	
 	private void openFileRight(File file) throws IOException {
@@ -337,6 +338,7 @@ public class ICController implements Initializable {
         this.RedPercentLabelR.setText(Double.toString(this.imageRight.percentRed));
         this.GreenPercentLabelR.setText(Double.toString(this.imageRight.percentGreen));
         this.BluePercentLabelR.setText(Double.toString(this.imageRight.percentBlue));
+        this.ColorPercentageLabelR.setText(Double.toString(this.imageRight.colorFulness));
     }
     
     private void setNewImageView(){
@@ -727,14 +729,36 @@ public class ICController implements Initializable {
     
     @FXML
     void saveLeftImageData(ActionEvent event) {
-
+    	//// IMSERT LEFT IMAGE DATA
+    	
+    	String date = this.imageLeft.iDate;
+    	String location = this.imageLeft.getISource();
+    	String name = this.imageLeft.iName;
+    	double colorFulness = this.imageLeft.colorFulness;
+    	double red = this.imageLeft.percentRed;
+    	double green = this.imageLeft.percentGreen;
+    	double blue = this.imageLeft.percentBlue;
+    	int size = this.imageLeft.getPixelTotal();
     	
     	
     }
 
+    
     @FXML
     void saveRightImageData(ActionEvent event) {
 
+    	/// INSERT RIGHT IMAGE DATA
+    	
+    	String date = this.imageRight.iDate;
+    	String location = this.imageRight.getISource();
+    	String name = this.imageRight.iName;
+    	double colorFulness = this.imageRight.colorFulness;
+    	double red = this.imageRight.percentRed;
+    	double green = this.imageRight.percentGreen;
+    	double blue = this.imageRight.percentBlue;
+    	int size = this.imageRight.getPixelTotal();
+    	
+    	
     	
     	
     }

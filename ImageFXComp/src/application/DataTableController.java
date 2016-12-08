@@ -1,6 +1,7 @@
 package application;
 import java.io.IOException;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -45,7 +47,7 @@ public class DataTableController {
     private GridPane ImageInfoGrid;
 
     @FXML
-    private Label ImageLocationLable;
+    private Label DateLocationLabel;
 
     @FXML
     private Label ImageSizeLabel;
@@ -63,7 +65,7 @@ public class DataTableController {
     private Label BlueLabel;
 
     @FXML
-    private Label locationDetailsLabel;
+    private Label DateDetailsLabel;
 
     @FXML
     private Label sizeDetailsLabel;
@@ -93,6 +95,19 @@ public class DataTableController {
     
     void setMain(Main main){
     	this.main = main;
+    }
+    
+    @FXML
+    void loadImageData(MouseEvent event) {
+    	
+    	
+    	
+    	this.RedDetailsLabel.setText("");
+    	this.GreenDetailsLabel.setText("");
+    	this.BlueDetailsLabel.setText("");
+    	this.sizeDetailsLabel.setText("");
+    	this.DateDetailsLabel.setText("");
+    	this.colorfulnessDetailsLabel.setText("");
     }
     
     @FXML
