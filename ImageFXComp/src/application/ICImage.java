@@ -2,6 +2,7 @@ package application;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.awt.Color;
 import java.awt.Component;
@@ -29,10 +30,11 @@ public class ICImage extends Component {
 	public int[] iAArray;
 	public int[][] iColorPixelArray;
 	public int[][][] iColorIntArray;
-	public long iAbin[];
-	public long iRbin[];
-	public long iGbin[];
-	public long iBbin[];
+	public int[] totalColors;
+	public int iAbin[];
+	public int iRbin[];
+	public int iGbin[];
+	public int iBbin[];
 	public String IURL;
 	public String iDate;
 	public String iName;
@@ -40,10 +42,18 @@ public class ICImage extends Component {
 	public BufferedImage image;
 	public Color color;
 	public File imageFile;
-	public double[] IcolorPercentages = new double[4];
+	public double[] percentages = new double[4];
+	public double totalColor;
+	public double transparentcy;
+	public double percentRed;
+	public double percentGreen;
+	public double percentBlue;
+	public double colorFulness;
+	public double totalColorPercentage;
 	
 	// constructor begin 
-	public ICImage(File file){
+	public ICImage(File file)
+	{
 		this.imageFile = file;
 		try {
 			this.image = ImageIO.read(file);
@@ -59,16 +69,20 @@ public class ICImage extends Component {
 		this.setIHeight(image);
 		this.setIWidth(image);
 		this.setColorArrays(image);
+		this.findTotalColors();
+		this.setIcolorPercentages();
 		this.setIDate();
 	}
 	
-	public ICImage(String imageSource) { 
+	public ICImage(String imageSource) 
+	{ 
 		this.setISource(imageSource); 				// link to image
 		this.createBImage(); 						// create buffered image
 		
 	} 
 	
-	public ICImage(String imageSource, String imageName) { 
+	public ICImage(String imageSource, String imageName) 
+	{ 
 		this.setISource(imageSource); 				// link to image
 		this.createBImage(); 						// create buffered image
 		this.setIName(imageName);
@@ -77,7 +91,8 @@ public class ICImage extends Component {
 	// constructor end
 
 //  MUTATORS ======  ( SET METHODS )  ======
-	public void setIURL(File file){
+	public void setIURL(File file)
+	{
 		try {
 			this.IURL = file.toURI().toURL().toString();
 		} catch (MalformedURLException e) {
@@ -87,7 +102,8 @@ public class ICImage extends Component {
 
 	}
 	
-	public void setINameFromFile(File file){
+	public void setINameFromFile(File file)
+	{
 		this.iName = file.getName();
 		int pos = this.iName.lastIndexOf(".");
 		if (pos > 0) {
@@ -99,7 +115,9 @@ public class ICImage extends Component {
 		this.iSrc = imageSource;
 	}
 
-	public void createBImage(){					// method creates buffered image object
+	
+	public void createBImage()
+	{					// method creates buffered image object
 		String imageSource = this.getISource();
 		try{
 			this.image = ImageIO.read(this.getClass().getResource(imageSource)); // set up buffered image
@@ -108,11 +126,14 @@ public class ICImage extends Component {
 		}		
 		this.setIHeight(image);
 		this.setIWidth(image);
+		this.findTotalColors();
 		this.setColorArrays(image);
 		this.setIDate();
 	}
 	
-	public void createBImage(String imageLocation){					// overload method creates buffered image object
+	
+	public void createBImage(String imageLocation)
+	{					// overload method creates buffered image object
 		try{
 			this.image = ImageIO.read(this.getClass().getResource(imageLocation)); // set up buffered image
 		}catch(IOException e){
@@ -124,15 +145,23 @@ public class ICImage extends Component {
 		this.setIDate();
 	}
 	
-	public void setIHeight(BufferedImage image){ // setting iHeight
+	
+	public void setIHeight(BufferedImage image)
+	{ // setting iHeight
 		this.iHeight = image.getHeight();
 	}
 	
-	public void setIWidth(BufferedImage image){ // setting iWidth
+	
+	
+	public void setIWidth(BufferedImage image)
+	{ // setting iWidth
 		this.iWidth = image.getWidth();
 	}
 	
-	public void setColorArrays(BufferedImage image){ // setting ColorArray 
+	
+	
+	public void setColorArrays(BufferedImage image)
+	{ // setting ColorArray 
 		int h = this.getIHeight();
 		int w = this.getIWidth();
 		int pixel;
@@ -158,23 +187,39 @@ public class ICImage extends Component {
 	      setIRArray(redArray);
 	      setIGArray(greenArray);
 	      setIBArray(blueArray);
-	      setIColorIntArray(this.iColorPixelArray);
 	      setBins(alphaArray, redArray, greenArray, blueArray);
+	      findTotalColors();
+	      setIcolorPercentages();
+	     
+	      
 	}
 	
-	public void setIColorIntArray(int[][] pixelArray){
-		int pixel;
-		int h = this.getIHeight();
-		int w = this.getIWidth();
-		this.iColorIntArray = new int[h][w][];
-	    for (int i = 0; i < h; i++) {
-		      for (int j = 0; j < w; j++) {
-		    	  pixel = (int) this.iColorPixelArray[i][j];
-		    	  int[] temp = {this.getAlpha(pixel), this.getRed(pixel), this.getGreen(pixel), this.getBlue(pixel)};
-		    	  this.iColorIntArray[i][j] = temp;
-		      }
-	    }
+	public void findTotalColors(){
+		int end = this.iRArray.length;
+		int result[] = new int[end];
+		int total;
+		for(int i = 0; i < end; i++){
+			total = 0;
+			total = this.iRArray[i]*1000;
+			total += this.iGArray[i]*1000;
+			total += this.iBArray[i];
+			result[i] = total;
+		}
+		
+		Arrays.sort(result);
+		int pointer = 0;
+		for(int i = 0; i < end; i++){
+			if(result[i] != this.totalColors[pointer]){
+				this.totalColors[pointer] = result[i];	
+				pointer+=1;
+			}
+			else{
+				//pass
+			}
+		}
+		
 	}
+	
 	
 	public void setIName(String imageName){
 		this.iName = imageName;
@@ -184,11 +229,24 @@ public class ICImage extends Component {
 		this.iAArray = alphaArray;
     }
 	
+	
+	public void setIBArray(int[] blueArray){
+		this.iBArray = blueArray;
+	}
+	
+	public void setIRArray(int[] redArray){
+		this.iRArray = redArray;
+	}
+	
+	public void setIGArray(int[] greenArray){
+		this.iGArray = greenArray;
+	}
+	
 	public void setBins(int[] alphaArray, int[] redArray, int[] greenArray, int[] blueArray){
-		this.iAbin = new long[256];
-		this.iRbin = new long[256];
-		this.iGbin = new long[256];
-		this.iBbin = new long[256];
+		this.iAbin = new int[256];
+		this.iRbin = new int[256];
+		this.iGbin = new int[256];
+		this.iBbin = new int[256];
 		for(int i = 0; i < 256; i++){
 			this.iAbin[i]=0;
 			this.iRbin[i]=0;
@@ -206,42 +264,51 @@ public class ICImage extends Component {
 		}
 	}
 	
-//	public void setIcolorPercentages(){
-//    	double red = 0;
-//    	double alpha = 0;
-//    	double blue = 0;
-//    	double green = 0;
-//    	int end = this.iAArray.length;
-//    	for(int i = 0; i < 255; i++){
-//    		alpha += this.iAArray[i];
-//    		red += this.iRArray[i];
-//    		blue += this.iBArray[i];
-//    		green += this.iGArray[i];	
-//    	}
+	public void setIcolorPercentages(){
+    	double red = 0;
+    	double alpha = 0;
+    	double blue = 0;
+    	double green = 0;
+    	double end = this.iRArray.length;
+    	long total = this.iRArray.length*255;
+    	this.totalColor = 0;
+    	
+    	for(int i = 0; i < end; i++){
+    		alpha += this.iAArray[i];
+    		red += this.iRArray[i];
+    		blue += this.iBArray[i];
+    		green += this.iGArray[i];
+    		this.totalColor = red + blue + green;
+    	}
 //    	System.out.println(alpha);
 //    	System.out.println(red);
 //    	System.out.println(green);
 //    	System.out.println(blue);
-//
-//    	this.IcolorPercentages[0] = alpha;
-//    	this.IcolorPercentages[1] = red;
-//    	this.IcolorPercentages[2] = green;
-//    	this.IcolorPercentages[3] = blue;
-//	}
+//    	System.out.println(total);
+//    	System.out.println("**************");
+    	
+    	this.transparentcy = alpha/totalColor*100;
+    	this.percentRed = red/totalColor*100;
+    	this.percentGreen = green/totalColor*100;
+    	this.percentBlue = blue/totalColor*100;
+    	this.totalColorPercentage =  (double) this.totalColors.length/this.getPixelTotal()*100;
+    	
+    	
+    	System.out.println(this.transparentcy);
+    	System.out.println(this.percentRed);
+    	System.out.println(this.percentGreen);
+    	System.out.println(this.percentBlue);
+    	System.out.println(this.totalColor);
+    	
+    	this.percentages[0] = this.transparentcy;
+    	this.percentages[1] = this.percentRed;
+    	this.percentages[2] = this.percentGreen;
+    	this.percentages[3] = this.percentBlue;
+	}
 	
 
 	
-	public void setIBArray(int[] blueArray){
-		this.iBArray = blueArray;
-	}
-	
-	public void setIRArray(int[] redArray){
-		this.iRArray = redArray;
-	}
-	
-	public void setIGArray(int[] greenArray){
-		this.iGArray = greenArray;
-	}
+
 	
 	public void setIDate(){
        //getting current date and time using Date class
@@ -281,10 +348,6 @@ public class ICImage extends Component {
 	
 	public int[][] getIColorPixelArray(){
 		return this.iColorPixelArray;
-	}
-	
-	public int[][][] getIColorIntArray(){
-		return this.iColorIntArray;
 	}
 	
 	public int[] getIAArray(){
@@ -348,18 +411,19 @@ public class ICImage extends Component {
 		return getBlue(pixel);
 	}
 	
-	public long[] getAlphaBin(){
+	public int[] getAlphaBin(){
 		return this.iAbin;
 	}
-	public long[] getRedBin(){
+	public int[] getRedBin(){
 		return this.iRbin;
 	}
-	public long[] getGreenBin(){
+	public int[] getGreenBin(){
 		return this.iGbin;
 	}
-	public long[] getBlueBin(){
+	public int[] getBlueBin(){
 		return this.iBbin;
 	}
+	
 	
 //	public double[] getIcolorPercentages(){
 ////		this.setIcolorPercentages();

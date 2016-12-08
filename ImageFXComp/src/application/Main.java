@@ -51,6 +51,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("views/ICFXmainView.fxml"));
 		this.MainStage.setTitle("ImageFX Compare");
 		this.MainStage.setScene(new Scene(root));
+    	this.MainStage.setResizable(true);
 //		this.MainStage.setMaximized(true);
 		this.MainStage.show();
 	}

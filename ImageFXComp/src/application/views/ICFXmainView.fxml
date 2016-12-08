@@ -39,7 +39,7 @@
                         <Insets />
                      </BorderPane.margin>
                      <children>
-                        <ImageView fx:id="mainImageLeft" fitHeight="400.0" fitWidth="700.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="mainImageLeft" fitHeight="400.0" fitWidth="700.0" layoutX="-75.0" layoutY="-55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-68.0" AnchorPane.leftAnchor="-75.0" AnchorPane.rightAnchor="-115.0" AnchorPane.topAnchor="-55.0">
                            <image>
                               <Image url="@../../../res/Material-Design-25.jpg" />
                            </image>
@@ -58,7 +58,18 @@
                   <Pane fx:id="ILbpL" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Pane fx:id="ILbpR" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="ILbpR" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="RedLabelL" layoutX="13.0" layoutY="17.0" text="Red %" textFill="RED" />
+                        <Label fx:id="RedPercentLabelL" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="37.0" text="- - - - " textAlignment="CENTER" />
+                        <Label fx:id="BlueLabelL" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="61.0" text="Blue %" textAlignment="CENTER" textFill="BLUE" />
+                        <Label fx:id="BluePercentLabelL" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="80.0" text="- - - - " textAlignment="CENTER" />
+                        <Label fx:id="GreenLabelL" layoutX="10.0" layoutY="100.0" text="Green %" textFill="LIME" />
+                        <Label fx:id="GreenPercentLabelL" layoutX="13.0" layoutY="119.0" text="- - - - " />
+                        <Label fx:id="ColorLabelL" layoutX="4.0" layoutY="139.0" text="Colorful %" textFill="#7fdaf1" />
+                        <Label fx:id="ColorPercentageLabelL" layoutX="14.0" layoutY="155.0" text="- - - - " />
+                     </children>
+                  </Pane>
                </right>
                <bottom>
                   <Pane fx:id="ILbpB" prefHeight="25.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
@@ -88,10 +99,6 @@
                   <Font size="15.0" />
                </font>
             </MenuButton>
-            <Button fx:id="LoadImageRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rightImageLoad" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" text="Load Comparable Image " textFill="#04f949" GridPane.columnIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
             <Pane fx:id="rightHistobuttonpane" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" GridPane.rowIndex="3" />
             <Button fx:id="AlphaButton" contentDisplay="CENTER" layoutX="10.0" layoutY="680.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeAlpha" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Alpha" textFill="#04f949" GridPane.rowIndex="3">
                <GridPane.margin>
@@ -116,7 +123,7 @@
                <center>
                   <AnchorPane fx:id="IRap" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fx:id="mainImageRight" fitHeight="400.0" fitWidth="700.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="mainImageRight" fitHeight="400.0" fitWidth="700.0" layoutX="-75.0" layoutY="-49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-68.0" AnchorPane.leftAnchor="-75.0" AnchorPane.rightAnchor="-115.0" AnchorPane.topAnchor="-49.0">
                            <image>
                               <Image url="@../../../res/google-material-design-wallpaper-17.jpg" />
                            </image>
@@ -132,7 +139,17 @@
                   </Label>
                </top>
                <left>
-                  <Pane fx:id="IRbpL" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="IRbpL" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="RedLabelR" layoutX="14.0" layoutY="23.0" text="Red %" textFill="RED" />
+                        <Label fx:id="RedPercentLabelR" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="43.0" text="- - - - " textAlignment="CENTER" />
+                        <Label fx:id="BlueLabelR" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="67.0" text="Blue %" textAlignment="CENTER" textFill="BLUE" />
+                        <Label fx:id="BluePercentLabelR" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="86.0" text="- - - - " textAlignment="CENTER" />
+                        <Label fx:id="GreenLabelR" layoutX="12.0" layoutY="106.0" text="Green %" textFill="LIME" />
+                        <Label fx:id="GreenPercentLabelR" layoutX="16.0" layoutY="124.0" text="- - - - " />
+                        <Label fx:id="ColorLabelR" layoutX="4.0" layoutY="145.0" text="Colorful %" textFill="#7fdaf1" />
+                        <Label fx:id="ColorPercentageLabelR" layoutX="16.0" layoutY="162.0" text="- - - - " />
+                     </children></Pane>
                </left>
                <right>
                   <Pane fx:id="IRbpR" prefWidth="75.0" style="-fx-background-color: TEAL;" BorderPane.alignment="CENTER" />
@@ -166,6 +183,10 @@
                </GridPane.margin>
             </Button>
             <Button fx:id="GreenButtonRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeGreenRight" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SLATEGREY;" text="Green" textFill="#04f949" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Button fx:id="LoadImageRight" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rightImageLoad" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: SLATEGREY;" text="Load Comparable Image " textFill="#04f949" GridPane.columnIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
          </children>
       </GridPane>
    </center>

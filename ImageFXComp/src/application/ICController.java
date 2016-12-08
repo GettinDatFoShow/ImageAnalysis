@@ -45,15 +45,16 @@ public class ICController implements Initializable {
 	public Desktop desktop = Desktop.getDesktop();
 	public Main main;
 	
-	long[] alphaBinL;
-	long[] redBinL;
-	long[] greenBinL;
-	long[] blueBinL;
+	int[] alphaBinL;
+	int[] redBinL;
+	int[] greenBinL;
+	int[] blueBinL;
 
-	long[] alphaBinR;
-	long[] redBinR;
-	long[] greenBinR;
-	long[] blueBinR;
+	int[] alphaBinR;
+	int[] redBinR;
+	int[] greenBinR;
+	int[] blueBinR;
+	
 	final int minVal = 2000;
 	public XYChart.Series seriesAlpha;
 	public XYChart.Series seriesRed;
@@ -203,10 +204,54 @@ public class ICController implements Initializable {
     @FXML
     private Button GreenButtonRight;
 
-   
+    @FXML
+    private Label RedLabelL;
+
+    @FXML
+    private Label RedPercentLabelL;
+
+    @FXML
+    private Label BlueLabelL;
+
+    @FXML
+    private Label BluePercentLabelL;
+
+    @FXML
+    private Label GreenLabelL;
+
+    @FXML
+    private Label GreenPercentLabelL;
+
+    @FXML
+    private Label RedLabelR;
+
+    @FXML
+    private Label RedPercentLabelR;
+
+    @FXML
+    private Label BlueLabelR;
+
+    @FXML
+    private Label BluePercentLabelR;
+
+    @FXML
+    private Label GreenLabelR;
+
+    @FXML
+    private Label GreenPercentLabelR;
     
+    @FXML
+    private Label ColorLabelL;
+
+    @FXML
+    private Label ColorPercentageLabelL;
     
-    
+    @FXML
+    private Label ColorLabelR;
+
+    @FXML
+    private Label ColorPercentageLabelR;
+
     void setMain(Main main){
     	this.main = main;
     }
@@ -282,16 +327,23 @@ public class ICController implements Initializable {
 
 	private void openFileLeft(File file) throws IOException {
         this.imageLeft = new ICImage(file);
+        this.RedPercentLabelL.setText(Double.toString(this.imageLeft.percentRed));
+        this.GreenPercentLabelL.setText(Double.toString(this.imageLeft.percentGreen));
+        this.BluePercentLabelL.setText(Double.toString(this.imageLeft.percentBlue));
     }
 	
 	private void openFileRight(File file) throws IOException {
         this.imageRight = new ICImage(file);
+        this.RedPercentLabelR.setText(Double.toString(this.imageRight.percentRed));
+        this.GreenPercentLabelR.setText(Double.toString(this.imageRight.percentGreen));
+        this.BluePercentLabelR.setText(Double.toString(this.imageRight.percentBlue));
     }
     
     private void setNewImageView(){
     	Image image = new Image(this.imageLeft.getIURL());
     	this.mainImageLeft.setImage(image);
     	System.out.println("Left Image Set");
+    	
     }
     
     private void setNewImageViewRight(){
@@ -427,8 +479,7 @@ public class ICController implements Initializable {
 	
     
     
-    
-    
+
     
 	private void setRGBhistoLeft() {
 		System.out.println("Setting up Left RGB histogram...");
@@ -559,8 +610,8 @@ public class ICController implements Initializable {
     	Parent dataTable = FXMLLoader.load(Main.class.getResource("views/ICFXDataTable.fxml"));
     	Scene DataTableScene = new Scene(dataTable);
     	this.main.MainStage.setScene(DataTableScene);
-    	this.main.MainStage.setResizable(true);
-    	this.main.MainStage.setMaximized(false);
+//    	this.main.MainStage.setResizable(true);
+//    	this.main.MainStage.setMaximized(false);
     	this.main.MainStage.show();
 //    	dataStage.setScene(DataTableScene);
 ////    	dataStage.setFullScreen(true);
@@ -677,11 +728,15 @@ public class ICController implements Initializable {
     @FXML
     void saveLeftImageData(ActionEvent event) {
 
+    	
+    	
     }
 
     @FXML
     void saveRightImageData(ActionEvent event) {
 
+    	
+    	
     }
     
 	@Override
