@@ -325,33 +325,20 @@ public class ICController implements Initializable {
         }
     }
 
-	private void openFileLeft(File file) throws IOException 
-	{
-		
+	private void openFileLeft(File file) throws IOException {
         this.imageLeft = new ICImage(file);
-        String redP = String.format("%d", (int)(this.imageLeft.percentRed));
-        String greenP = String.format("%d", (int)(this.imageLeft.percentGreen));
-        String blueP = String.format("%d", (int)(this.imageLeft.percentBlue));
-        String colorfulP = String.format("%d", (int)(this.imageLeft.colorFulness));
-        
-        this.RedPercentLabelL.setText(redP + " %");
-        this.GreenPercentLabelL.setText(greenP + " %");
-        this.BluePercentLabelL.setText(blueP + " %");
-        this.ColorPercentageLabelL.setText(colorfulP + " %");
+        this.RedPercentLabelL.setText(Double.toString(this.imageLeft.percentRed));
+        this.GreenPercentLabelL.setText(Double.toString(this.imageLeft.percentGreen));
+        this.BluePercentLabelL.setText(Double.toString(this.imageLeft.percentBlue));
+        this.ColorPercentageLabelL.setText(Double.toString(this.imageLeft.colorFulness));
     }
 	
-	private void openFileRight(File file) throws IOException 
-	{
+	private void openFileRight(File file) throws IOException {
         this.imageRight = new ICImage(file);
-        String redP = String.format("%d", (int)(this.imageRight.percentRed));
-        String greenP = String.format("%d", (int)(this.imageRight.percentGreen));
-        String blueP = String.format("%d", (int)(this.imageRight.percentBlue));
-        String colorfulP = String.format("%d", (int)(this.imageRight.colorFulness));
-        
-        this.RedPercentLabelR.setText(redP + " %");
-        this.GreenPercentLabelR.setText(greenP + " %");
-        this.BluePercentLabelR.setText(blueP + " %");
-        this.ColorPercentageLabelR.setText(colorfulP + " %");
+        this.RedPercentLabelR.setText(Double.toString(this.imageRight.percentRed));
+        this.GreenPercentLabelR.setText(Double.toString(this.imageRight.percentGreen));
+        this.BluePercentLabelR.setText(Double.toString(this.imageRight.percentBlue));
+        this.ColorPercentageLabelR.setText(Double.toString(this.imageRight.colorFulness));
     }
     
     private void setNewImageView(){

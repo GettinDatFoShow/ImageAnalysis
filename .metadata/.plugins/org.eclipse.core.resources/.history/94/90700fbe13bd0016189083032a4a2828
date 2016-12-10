@@ -336,8 +336,8 @@ public class ICController implements Initializable {
         
         this.RedPercentLabelL.setText(redP + " %");
         this.GreenPercentLabelL.setText(greenP + " %");
-        this.BluePercentLabelL.setText(blueP + " %");
-        this.ColorPercentageLabelL.setText(colorfulP + " %");
+        this.BluePercentLabelL.setText(String.format(blueP + " %");
+        this.ColorPercentageLabelL.setText(String.format(colorfulP + " %");
     }
 	
 	private void openFileRight(File file) throws IOException 
