@@ -107,7 +107,7 @@ public class DataTableController {
     	this.BlueDetailsLabel.setText("");
     	this.sizeDetailsLabel.setText("");
     	this.DateDetailsLabel.setText("");
-    	this.colorfulnessDetailsLabel.setText("");
+    	//this.colorfulnessDetailsLabel.setText("");
     }
     
     @FXML
