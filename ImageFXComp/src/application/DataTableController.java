@@ -1,24 +1,53 @@
 package application;
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import java.util.HashMap;
+import java.util.Map;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
-public class DataTableController {
-
+public class DataTableController implements Initializable{
+	public JDBCAdapter adapter = Main.adapter;
+	public static final String Column1MapKey = "N=";
+    public static final String Column2MapKey = "P=";
     @FXML
     private AnchorPane dataTableMainPane;
 
@@ -100,7 +129,7 @@ public class DataTableController {
     @FXML
     void loadImageData(MouseEvent event) {
     	
-    	
+        
     	
     	this.RedDetailsLabel.setText("");
     	this.GreenDetailsLabel.setText("");
@@ -119,5 +148,92 @@ public class DataTableController {
     	this.main.MainStage.show();
     	
     }
+    void populateTable(){
+    	
+    	
+    		
+    		
+    	
+    }
     
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+	
+    
+		
+	}
+	public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Table View Sample");
+        stage.setWidth(300);
+        stage.setHeight(500);
+        
+        final Label label = new Label("ImageData");
+        label.setFont(new Font("Arial", 20));
+ 
+        TableColumn<Map, String> firstDataColumn = new TableColumn<>("ImageName");
+        TableColumn<Map, String> secondDataColumn = new TableColumn<>("ImagePath");
+ 
+        firstDataColumn.setCellValueFactory(new MapValueFactory(Column1MapKey));
+        firstDataColumn.setMinWidth(130);
+        secondDataColumn.setCellValueFactory(new MapValueFactory(Column2MapKey));
+        secondDataColumn.setMinWidth(130);
+ 
+        TableView table_view = new TableView<>(generateDataInMap());
+ 
+        table_view.setEditable(true);
+        table_view.getSelectionModel().setCellSelectionEnabled(true);
+        table_view.getColumns().setAll(firstDataColumn, secondDataColumn);
+        Callback<TableColumn<Map, String>, TableCell<Map, String>>
+            cellFactoryForMap = new Callback<TableColumn<Map, String>,
+                TableCell<Map, String>>() {
+                    @Override
+                    public TableCell call(TableColumn p) {
+                        return new TextFieldTableCell(new StringConverter() {
+                            @Override
+                            public String toString(Object t) {
+                                return t.toString();
+                            }
+                            @Override
+                            public Object fromString(String string) {
+                                return string;
+                            }                                    
+                        });
+                    }
+        };
+        firstDataColumn.setCellFactory(cellFactoryForMap);
+        secondDataColumn.setCellFactory(cellFactoryForMap);
+ 
+        final VBox vbox = new VBox();
+ 
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table_view);
+ 
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+ 
+        stage.setScene(scene);
+ 
+        stage.show();
+    }
+ 
+    private ObservableList<Map> generateDataInMap() {
+        int max = 10;
+        String sql= "select * from Imagecomp;";
+	    int	n = adapter.executeQuery(sql);
+        ObservableList<Map> allData = FXCollections.observableArrayList();
+        for (int i = 0; i < n; i++) {
+            Map<String, String> dataRow = new HashMap<>();
+ 
+            String value1 = adapter.getValueAt(i,0);
+            String value2 = adapter.getValueAt(i, 1);
+ 
+            dataRow.put(Column1MapKey, value1);
+            dataRow.put(Column2MapKey, value2);
+ 
+            allData.add(dataRow);
+        }
+        return allData;
+    }
 }

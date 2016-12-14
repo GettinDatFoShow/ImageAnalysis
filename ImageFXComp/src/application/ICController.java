@@ -1,10 +1,12 @@
 package application;
 
 import java.net.URL;
+import java.nio.*;
+import java.sql.*;
 import java.util.ResourceBundle;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +46,7 @@ public class ICController implements Initializable {
 	public FileChooser fileChooser = new FileChooser();
 	public Desktop desktop = Desktop.getDesktop();
 	public Main main;
-	
+
 	int[] alphaBinL;
 	int[] redBinL;
 	int[] greenBinL;
@@ -88,9 +90,8 @@ public class ICController implements Initializable {
 	
 	public boolean runningLeft;
 	public boolean runningRight;
-	
-	
-	
+	 
+	public JDBCAdapter adapter = Main.adapter;
 	// FXML to FX VARIABLE SETUP
 
     @FXML
@@ -339,6 +340,7 @@ public class ICController implements Initializable {
         this.GreenPercentLabelR.setText(Double.toString(this.imageRight.percentGreen));
         this.BluePercentLabelR.setText(Double.toString(this.imageRight.percentBlue));
         this.ColorPercentageLabelR.setText(Double.toString(this.imageRight.colorFulness));
+        
     }
     
     private void setNewImageView(){
@@ -352,6 +354,8 @@ public class ICController implements Initializable {
     	Image image = new Image(this.imageRight.getIURL());
     	this.mainImageRight.setImage(image);
     	System.out.println("Right Image Set");
+        
+
     }
     
     
@@ -388,7 +392,7 @@ public class ICController implements Initializable {
 		this.isRedR = true;
 		this.isGreenR = true;
     }
-    
+    int[] histogramR;
     private void setRightHistoChartData(){
     	System.out.println("setting up RGB histogram right chart data..");
 		
@@ -419,6 +423,14 @@ public class ICController implements Initializable {
 
 		this.RGBhistogramRight.getData().addAll(seriesRpr,seriesApr,seriesGpr,seriesBpr);
 		System.out.println("Right Histogram Data Set.");
+		histogramR= new int[1024];
+		for (int i=0;i<256;i++){
+			histogramR[i]=this.alphaBinR[i];
+			histogramR[256+i]=this.redBinR[i];
+			histogramR[512+i]=this.greenBinR[i];
+			histogramR[768+i]=this.blueBinR[i];
+			
+		}
     }
 
     private void resetRightHistoChartData(){
@@ -515,7 +527,9 @@ public class ICController implements Initializable {
 		this.isGreen = true;
     }
 		
-    private void setLeftHistoChartData(){
+    
+	int[] histogramL;
+	private void setLeftHistoChartData(){
     	System.out.println("setting up left histogram chart data..");
     	
 		this.alphaBinL = this.imageLeft.getAlphaBin();
@@ -543,6 +557,15 @@ public class ICController implements Initializable {
 			}
 
 		this.RGBhistogramLeft.getData().addAll(seriesRed, seriesAlpha, seriesGreen, seriesBlue);
+		histogramL= new int[1024];
+		for (int i=0;i<256;i++){
+			histogramL[i]=this.alphaBinL[i];
+			histogramL[256+i]=this.redBinL[i];
+			histogramL[512+i]=this.greenBinL[i];
+			histogramL[768+i]=this.blueBinL[i];
+			
+		}
+			
 		System.out.println("Left Histogram Data Set.");
     }
     
@@ -604,6 +627,7 @@ public class ICController implements Initializable {
 
     @FXML
     void closeProgram(ActionEvent event) {
+    	adapter.close();
 
     }
 
@@ -739,7 +763,9 @@ public class ICController implements Initializable {
     	double green = this.imageLeft.percentGreen;
     	double blue = this.imageLeft.percentBlue;
     	int size = this.imageLeft.getPixelTotal();
-    	
+    	saveImageInfo(adapter,location,name,size,red,green,blue,colorFulness,histogramL);
+    	System.out.print("save Complete");
+
     	
     }
 
@@ -757,12 +783,49 @@ public class ICController implements Initializable {
     	double green = this.imageRight.percentGreen;
     	double blue = this.imageRight.percentBlue;
     	int size = this.imageRight.getPixelTotal();
-    	
+    	String values = ""+location+name;
+    	//adapter.executeUpdate("Insert INTO ImageComp(ImagePath,ImageName,ImageSize,percentRed,percentGreen,percentBlue,Colorfulness,Histogram) VALUES(location))");
+    	saveImageInfo(adapter,location,name,size,red,green,blue,colorFulness,histogramR);
     	
     	
     	
     }
-    
+    void saveImageInfo(JDBCAdapter adapter,String filepath, String filename, int size, double red, double green, double blue, double colorfulness, int [] x)
+    {
+        
+        try{
+             
+        	 ByteBuffer byteBuffer = ByteBuffer.allocate(x.length * 4);        
+             IntBuffer intBuffer = byteBuffer.asIntBuffer();
+             intBuffer.put(x);
+             byte[] array = byteBuffer.array();
+             ByteArrayInputStream y = new ByteArrayInputStream(array);
+             System.out.println("size=" + array.length);
+            PreparedStatement pst =  adapter.connection.prepareStatement( 
+            "INSERT INTO ImageComp(imagepath, imagename, imagesize, percentred, percentgreen, percentblue, colorfulness, histogram) VALUES(?,?,?,?,?,?,?,?)");
+            System.out.println("filename=" + filename);
+            System.out.println("FILEpath=" + filepath);
+           
+            pst.setString(1, filepath);
+            pst.setString(2,  filename);
+            pst.setInt(3, size); 
+            pst.setDouble(4, red);
+            pst.setDouble(5, green);
+            pst.setDouble(6, blue);
+            pst.setDouble(7, colorfulness);
+            pst.setBinaryStream(8, y);
+            System.out.println("colorfulness=" + colorfulness);
+            int n = pst.executeUpdate();
+            System.out.println("n=" + n);
+            
+            }catch(Exception e){System.out.println(e.toString()); }
+    }
+    @FXML
+    void DisplayDatabase(ActionEvent event)
+    {
+    	adapter.print();
+    	//ResultSet myRs = adapter.executeQuery("SELECT * FROM ImageComp");
+    }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Starting up ImageFXcompare....");

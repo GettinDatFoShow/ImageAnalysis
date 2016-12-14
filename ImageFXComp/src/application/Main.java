@@ -45,6 +45,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 	public static Stage MainStage;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.MainStage = primaryStage;
@@ -55,8 +56,16 @@ public class Main extends Application {
 //		this.MainStage.setMaximized(true);
 		this.MainStage.show();
 	}
-	
+	static public JDBCAdapter adapter;
 	public static void main(String[] args){
+		String driver = "org.h2.Driver";
+	    String server = "jdbc:h2:~/mydb";
+	    String  user = "sa";
+	    String  pass  = "";
+		adapter = new JDBCAdapter(server,driver,user,pass);
+		System.out.println("any error=" + adapter.error());
+		String sql0 = "CREATE TABLE ImageComp(ImagePath VARCHAR(90), ImageName VARCHAR(30), ImageSize VARCHAR(30), percentRed VARCHAR(30), percentGreen VARCHAR(30), percentBlue VARCHAR(30), Colorfulness  VARCHAR(30),Histogram BLOB, Primary key (imagepath))";
+		adapter.executeUpdate(sql0);
 		launch(args);
 	}
 
