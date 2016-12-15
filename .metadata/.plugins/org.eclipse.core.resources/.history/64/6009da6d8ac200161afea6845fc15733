@@ -1,0 +1,264 @@
+package application;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import java.util.HashMap;
+import java.util.Map;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+
+public class DataTableController implements Initializable{
+	public JDBCAdapter adapter = Main.adapter;
+	public static final String Column1MapKey = "N=";
+    public static final String Column2MapKey = "P=";
+    @FXML
+    private AnchorPane dataTableMainPane;
+
+    @FXML
+    private SplitPane dtSplitPane;
+
+    @FXML
+    private AnchorPane tableAPane;
+
+    @FXML
+    private TableView<Map> dataTableView;
+
+    @FXML
+    private TableColumn<Map, String> ImageTcolumn;
+
+    @FXML
+    private TableColumn<Map, String> LocationTcoloumn;
+
+    @FXML
+    private AnchorPane imageInfoApane;
+
+    @FXML
+    private Label ImageFxDetailsLabel;
+
+    @FXML
+    private GridPane ImageInfoGrid;
+
+    @FXML
+    private Label DateLocationLabel;
+
+    @FXML
+    private Label ImageSizeLabel;
+
+    @FXML
+    private Label colorfulnessLabel;
+
+    @FXML
+    private Label redLabel;
+
+    @FXML
+    private Label GreenLabel;
+
+    @FXML
+    private Label BlueLabel;
+
+    @FXML
+    private Label DateDetailsLabel;
+
+    @FXML
+    private Label sizeDetailsLabel;
+
+    @FXML
+    private Label colorfulnessDetailsLabel;
+
+    @FXML
+    private Label RedDetailsLabel;
+
+    @FXML
+    private Label GreenDetailsLabel;
+
+    @FXML
+    private Label BlueDetailsLabel;
+
+    @FXML
+    private Button BackButton;
+
+    @FXML
+    private Button ViewButton;
+
+    @FXML
+    private Button DeleteButton;
+
+	public Main main;
+    
+    void setMain(Main main){
+    	this.main = main;
+    }
+    
+    @FXML
+    void loadImageData(MouseEvent event) {
+    	
+        
+    	
+    	this.RedDetailsLabel.setText("");
+    	this.GreenDetailsLabel.setText("");
+    	this.BlueDetailsLabel.setText("");
+    	this.sizeDetailsLabel.setText("");
+    	this.DateDetailsLabel.setText("");
+    	//this.colorfulnessDetailsLabel.setText("");
+    }
+    
+    @FXML
+    void returnToMainView(ActionEvent event) throws IOException{
+    	Parent mainView = FXMLLoader.load(Main.class.getResource("views/ICFXmainView.fxml"));
+    	Scene ICFXmainView = new Scene(mainView);
+    	this.main.MainStage.setScene(ICFXmainView);
+//    	this.main.MainStage.setMaximized(true);
+    	this.main.MainStage.show();
+    	
+    }
+    void populateTable(){
+    	
+    	
+    		
+    		
+    	
+    }
+    
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		this.ImageTcolumn.setCellValueFactory(new MapValueFactory(Column1MapKey));
+      	this.ImageTcolumn.setCellValueFactory(new MapValueFactory(Column2MapKey));
+        this.dataTableView.setEditable(true);
+        this.dataTableView.setItems(generateDataInMap());
+        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
+        this.dataTableView.getColumns().setAll(this.ImageTcolumn, this.LocationTcoloumn);
+        Callback<TableColumn<Map, String>, TableCell<Map, String>>
+            cellFactoryForMap = new Callback<TableColumn<Map, String>,
+                TableCell<Map, String>>() {
+                    @SuppressWarnings("unchecked")
+					@Override
+                    public TableCell<Map, String> call(TableColumn p) {
+                        return new TextFieldTableCell(new StringConverter() {
+                            @Override
+                            public String toString(Object t) {
+                                return t.toString();
+                            }
+                            @Override
+                            public Object fromString(String string) {
+                                return string;
+                            }                                    
+                        });
+                    }
+        };
+        this.ImageTcolumn.setCellFactory(cellFactoryForMap);
+        this.LocationTcoloumn.setCellFactory(cellFactoryForMap);
+		
+//	}
+//	public void start(Stage stage) {
+//        Scene scene = new Scene(new Group());
+//        stage.setTitle("Table View Sample");
+//        stage.setWidth(300);
+//        stage.setHeight(500);
+//        
+//        final Label label = new Label("ImageData");
+//        label.setFont(new Font("Arial", 20));
+// 
+//        TableColumn<Map, String> firstDataColumn = new TableColumn<>("ImageName");
+//        TableColumn<Map, String> secondDataColumn = new TableColumn<>("ImagePath");
+// 
+//		this.ImageTcolumn.setCellValueFactory(new MapValueFactory(Column1MapKey));
+//        firstDataColumn.setMinWidth(130);
+//        this.ImageTcolumn.setCellValueFactory(new MapValueFactory(Column2MapKey));
+//        secondDataColumn.setMinWidth(130);
+// 
+//        TableView table_view = new TableView<>(generateDataInMap());
+ 
+//        this.dataTableView.setEditable(true);
+//        this.dataTableView.setItems(generateDataInMap());
+//        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
+//        this.dataTableView.getColumns().setAll(this.ImageTcolumn, this.LocationTcoloumn);
+//        Callback<TableColumn<Map, String>, TableCell<Map, String>>
+//            cellFactoryForMap = new Callback<TableColumn<Map, String>,
+//                TableCell<Map, String>>() {
+//                    @Override
+//                    public TableCell call(TableColumn p) {
+//                        return new TextFieldTableCell(new StringConverter() {
+//                            @Override
+//                            public String toString(Object t) {
+//                                return t.toString();
+//                            }
+//                            @Override
+//                            public Object fromString(String string) {
+//                                return string;
+//                            }                                    
+//                        });
+//                    }
+//        };
+//        this.ImageTcolumn.setCellFactory(cellFactoryForMap);
+//        this.LocationTcoloumn.setCellFactory(cellFactoryForMap);
+// 
+//        final VBox vbox = new VBox();
+// 
+//        vbox.setSpacing(5);
+//        vbox.setPadding(new Insets(10, 0, 0, 10));
+//        vbox.getChildren().addAll(label, table_view);
+// 
+//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+// 
+//        stage.setScene(scene);
+// 
+//        stage.show();
+    }
+ 
+    private ObservableList<Map> generateDataInMap() {
+        int max = 10;
+        String sql= "select * from Imagecomp;";
+	    int	n = adapter.executeQuery(sql);
+        ObservableList<Map> allData = FXCollections.observableArrayList();
+        for (int i = 0; i < n; i++) {
+            Map<String, String> dataRow = new HashMap<>();
+ 
+            String value1 = adapter.getValueAt(i,0);
+            String value2 = adapter.getValueAt(i, 1);
+ 
+            dataRow.put(Column1MapKey, value1);
+            dataRow.put(Column2MapKey, value2);
+ 
+            this.ImageTcolumn.add(Column1MapKey, value1);
+        }
+        return allData;
+    }
+}

@@ -39,6 +39,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
  
 /**
  * @web http://java-buddy.blogspot.com
@@ -56,7 +57,7 @@ public class Main extends Application {
 //		this.MainStage.setMaximized(true);
 		this.MainStage.show();
 	}
-	static public JDBCAdapter adapter;
+	public static JDBCAdapter adapter;
 	
 	public static void main(String[] args){
 		String driver = "org.h2.Driver";
