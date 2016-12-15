@@ -125,7 +125,7 @@
                      <children>
                         <ImageView fx:id="mainImageRight" fitHeight="400.0" fitWidth="700.0" layoutX="-75.0" layoutY="-49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-68.0" AnchorPane.leftAnchor="-75.0" AnchorPane.rightAnchor="-115.0" AnchorPane.topAnchor="-49.0">
                            <image>
-                              <Image url="@../../../res/google-material-design-wallpaper-17.jpg" />
+                              <Image url="@../../../res/material-design2.jpg" />
                            </image>
                         </ImageView>
                      </children>

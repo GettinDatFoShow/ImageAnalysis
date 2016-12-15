@@ -9,6 +9,7 @@ public class ImageRecord {
 	private String green;
 	private String blue;
 	private String colorfulness;
+
 	
 	public ImageRecord(){
 		

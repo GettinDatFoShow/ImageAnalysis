@@ -1,0 +1,79 @@
+package application;
+
+public class ImageRecord {
+
+	private String filepath;
+	private String filename;
+	private String date;
+	private String red;
+	private String green;
+	private String blue;
+	private String colorfulness;
+	
+	public ImageRecord(){
+		
+		this.filepath = "";
+		this.filename = "";
+		this.date = "";
+		this.red = "";
+		this.green = "";
+		this.blue = "";
+		this.colorfulness = "";
+		
+	}
+	
+	public ImageRecord(String filepath, String filename, String date, String red, String green, String blue, String colorfulness){
+		
+		this.filepath = filepath;
+		this.filename = filename;
+		this.date = date;
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		this.colorfulness = colorfulness;
+		
+	}
+	
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getRed() {
+		return red;
+	}
+	public void setRed(String red) {
+		this.red = red;
+	}
+	public String getGreen() {
+		return green;
+	}
+	public void setGreen(String green) {
+		this.green = green;
+	}
+	public String getBlue() {
+		return blue;
+	}
+	public void setBlue(String blue) {
+		this.blue = blue;
+	}
+	public String getColorfulness() {
+		return colorfulness;
+	}
+	public void setColorfulness(String colorfulness) {
+		this.colorfulness = colorfulness;
+	}
+}

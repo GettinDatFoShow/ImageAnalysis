@@ -253,11 +253,9 @@ public class ICController implements Initializable {
     @FXML
     private Label ColorPercentageLabelR;
 
-    void setMain(Main main){
-    	this.main = main;
-    }
-    
-    
+//    void setMain(Main main){
+//    	this.main = main;
+//    }
     
 // *****************************************************************
 //     IMAGE METHODS 
@@ -510,9 +508,6 @@ public class ICController implements Initializable {
     }
 	
     
-    
-
-    
 	private void setRGBhistoLeft() {
 		System.out.println("Setting up Left RGB histogram...");
     	if(this.runningLeft){
@@ -644,7 +639,7 @@ public class ICController implements Initializable {
     
 
     @FXML
-    void closeProgram(ActionEvent event) {
+    void closeProgram(ActionEvent event) throws Exception {
     	adapter.close();
 
     }

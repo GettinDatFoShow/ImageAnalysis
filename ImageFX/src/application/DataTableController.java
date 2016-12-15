@@ -182,33 +182,32 @@ public class DataTableController implements Initializable{
       	this.dataTableView.setEditable(true);
         this.tableRecord = getImageRecords();
         this.dataTableView.setItems(tableRecord);
-//        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
-//        Callback<TableColumn<ImageRecord, String>, TableCell<ImageRecord, String>>
-//            cellFactoryForProperty = new Callback<TableColumn<ImageRecord, String>,
-//                TableCell<ImageRecord, String>>() {
-//                    @SuppressWarnings("unchecked")
-//					@Override
-//                    public TableCell call(TableColumn p) {
-//                        return new TextFieldTableCell(new StringConverter() {
-//                            @Override
-//                            public String toString(Object t) {
-//                                return t.toString();
-//                            }
-//                            @Override
-//                            public Object fromString(String string) {
-//                                return string;
-//                            }                                    
-//                        });
-//                    }
-//        };
-//        this.NameColumn.setCellFactory(cellFactoryForProperty);
-//        this.PathColumn.setCellFactory(cellFactoryForProperty);
-//        this.DateColumn.setCellFactory(cellFactoryForProperty);
-//        this.RedColumn.setCellFactory(cellFactoryForProperty);
-//        this.GreenColumn.setCellFactory(cellFactoryForProperty);
-//        this.BlueColumn.setCellFactory(cellFactoryForProperty);
-//        this.ColorColumn.setCellFactory(cellFactoryForProperty);
-
+        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
+        Callback<TableColumn<ImageRecord, String>, TableCell<ImageRecord, String>>
+            cellFactoryForProperty = new Callback<TableColumn<ImageRecord, String>,
+                TableCell<ImageRecord, String>>() {
+                    @SuppressWarnings("unchecked")
+					@Override
+                    public TableCell call(TableColumn p) {
+                        return new TextFieldTableCell(new StringConverter() {
+                            @Override
+                            public String toString(Object t) {
+                                return t.toString();
+                            }
+                            @Override
+                            public Object fromString(String string) {
+                                return string;
+                            }                                    
+                        });
+                    }
+        };
+        this.NameColumn.setCellFactory(cellFactoryForProperty);
+        this.PathColumn.setCellFactory(cellFactoryForProperty);
+        this.DateColumn.setCellFactory(cellFactoryForProperty);
+        this.RedColumn.setCellFactory(cellFactoryForProperty);
+        this.GreenColumn.setCellFactory(cellFactoryForProperty);
+        this.BlueColumn.setCellFactory(cellFactoryForProperty);
+        this.ColorColumn.setCellFactory(cellFactoryForProperty);
 	}
  
     private ObservableList<ImageRecord> getImageRecords() {
@@ -224,15 +223,8 @@ public class DataTableController implements Initializable{
             String g = adapter.getValueAt(i, 4);
             String b = adapter.getValueAt(i, 5);
             String c = adapter.getValueAt(i, 6);
-            ImageRecord record = new ImageRecord(fp, fn, d, r, g, b, c);
-            
-//            dataRow.put(Column1MapKey, filepath);
-//            dataRow.put(Column2MapKey, filename);
-//            dataRow.put(Column3MapKey, date);
-//            dataRow.put(Column4MapKey, red);
-//            dataRow.put(Column5MapKey, green);
-//            dataRow.put(Column6MapKey, blue);
-//            dataRow.put(Column7MapKey, colorfulness);            
+//            String h = adapter.getValueAt(i, 7);
+            ImageRecord record = new ImageRecord(fp, fn, d, r, g, b, c);        
             
             allData.add(record);
  
