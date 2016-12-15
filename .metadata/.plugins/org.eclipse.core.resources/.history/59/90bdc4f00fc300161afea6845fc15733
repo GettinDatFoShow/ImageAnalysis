@@ -54,9 +54,9 @@ public class JDBCAdapter {
 
     static void testit2(String server, String driver, String user, String pass) {
         JDBCAdapter adapter = new JDBCAdapter(server, driver, user, pass, System.out);
-        String sql0 = "CREATE TABLE ImageFX(ImagePath VARCHAR(60), ImageName VARCHAR(60), ImageDate VARCHAR(30), percentRed VARCHAR(10), percentGreen VARCHAR(10), percentBlue VARCHAR(10), Colorfulness  VARCHAR(30))";
-        String sql1 = "INSERT INTO ImageFX(ImageName) VALUES('D10012345');";
-        String sql = "SELECT * FROM ImageFX";
+        String sql0 = "CREATE TABLE ImageComp(ImagePath VARCHAR(60), ImageName VARCHAR(60), ImageDate VARCHAR(30), percentRed VARCHAR(10), percentGreen VARCHAR(10), percentBlue VARCHAR(10), Colorfulness  VARCHAR(30))";
+        String sql1 = "INSERT INTO ImageComp(ImageName) VALUES('D10012345');";
+        String sql = "SELECT * FROM ImageComp";
       //  adapter.executeUpdate(sql0);
         //int x = adapter.executeUpdate(sql1);
         //System.out.println("number of records of affected = " + x);

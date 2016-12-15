@@ -11,27 +11,24 @@ public class ImageRecord {
 	private String colorfulness;
 	
 	public ImageRecord(){
-		
-		this.filepath = "";
-		this.filename = "";
-		this.date = "";
-		this.red = "";
-		this.green = "";
-		this.blue = "";
-		this.colorfulness = "";
-		
+		String filepath;
+		String filename;
+		String date;
+		String red;
+		String green;
+		String blue;
+		String colorfulness;
 	}
 	
-	public ImageRecord(String filepath, String filename, String date, String red, String green, String blue, String colorfulness){
+	public ImageRecord(String fp, String fn, String d, String r, String g, String b, String c){
 		
-		this.filepath = filepath;
-		this.filename = filename;
-		this.date = date;
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
-		this.colorfulness = colorfulness;
-		
+		String filepath = fp;
+		String filename = fn;
+		String date = d;
+		String red = r;
+		String green = g;
+		String blue = b;
+		String colorfulness = c;
 	}
 	
 	public String getFilepath() {

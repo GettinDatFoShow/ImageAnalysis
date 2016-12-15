@@ -65,7 +65,7 @@ public class Main extends Application {
 	    String  pass  = "";
 		adapter = new JDBCAdapter(server,driver,user,pass);
 		System.out.println("any error=" + adapter.error());
-		String sql0 = "CREATE TABLE ImageFX(ImagePath VARCHAR(90), ImageName VARCHAR(30), ImageDate VARCHAR(30), percentRed VARCHAR(30), percentGreen VARCHAR(30), percentBlue VARCHAR(30), Colorfulness  VARCHAR(30),Histogram BLOB, Primary key (imagepath))";
+		String sql0 = "CREATE TABLE ImageComp(ImagePath VARCHAR(90), ImageName VARCHAR(30), ImageSize VARCHAR(30), percentRed VARCHAR(30), percentGreen VARCHAR(30), percentBlue VARCHAR(30), Colorfulness  VARCHAR(30),Histogram BLOB, Primary key (imagepath))";
 		adapter.executeUpdate(sql0);
 		launch(args);
 	}

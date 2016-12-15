@@ -22,15 +22,15 @@ public class ImageRecord {
 		
 	}
 	
-	public ImageRecord(String filepath, String filename, String date, String red, String green, String blue, String colorfulness){
+	public ImageRecord(String fp, String fn, String d, String r, String g, String b, String c){
 		
-		this.filepath = filepath;
-		this.filename = filename;
-		this.date = date;
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
-		this.colorfulness = colorfulness;
+		this.filepath = fp;
+		this.filename = fn;
+		this.date = d;
+		this.red = r;
+		this.green = g;
+		this.blue = b;
+		this.colorfulness = c;
 		
 	}
 	

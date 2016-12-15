@@ -18,7 +18,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -54,7 +53,7 @@ public class DataTableController implements Initializable{
 //    public static final String Column5MapKey = "G=";
 //    public static final String Column6MapKey = "B=";
 //    public static final String Column7MapKey = "C=";
-    public static ObservableList<ImageRecord> tableRecord;
+    public static ObservableList<Map> tableRecord;
 //    public static final String Column2MapKey = "N=";
     @FXML
     private AnchorPane dataTableMainPane;
@@ -66,13 +65,13 @@ public class DataTableController implements Initializable{
     private AnchorPane tableAPane;
 
     @FXML
-    private TableView<ImageRecord> dataTableView;
+    private TableView<Map> dataTableView;
 
     @FXML
-    private TableColumn<ImageRecord, String> NameColumn;
+    private TableColumn<ImageRecord, String> ImageTcolumn;
 
     @FXML
-    private TableColumn<ImageRecord, String> PathColumn;
+    private TableColumn<ImageRecord, String> LocationTcolumn;
 
     @FXML
     private TableColumn<ImageRecord, String> DateColumn;
@@ -169,51 +168,59 @@ public class DataTableController implements Initializable{
     	this.main.MainStage.show();
     	
     }
+    void populateTable(){
+    	
+    	
+    		
+    		
+    	
+    }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.NameColumn.setCellValueFactory(new PropertyValueFactory<>("filename"));
-      	this.PathColumn.setCellValueFactory(new PropertyValueFactory<>("filepath"));
-        this.DateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        this.RedColumn.setCellValueFactory(new PropertyValueFactory<>("red"));
-        this.GreenColumn.setCellValueFactory(new PropertyValueFactory<>("green"));
-        this.BlueColumn.setCellValueFactory(new PropertyValueFactory<>("blue"));
-        this.ColorColumn.setCellValueFactory(new PropertyValueFactory<>("colorfulness"));
+		// TODO Auto-generated method stub
+		this.ImageTcolumn.setCellValueFactory(new MapValueFactory(Column1MapKey));
+      	this.LocationTcolumn.setCellValueFactory(new MapValueFactory(Column2MapKey));
+        this.DateColumn.setCellValueFactory(new MapValueFactory(Column3MapKey));
+        this.RedColumn.setCellValueFactory(new MapValueFactory(Column4MapKey));
+        this.GreenColumn.setCellValueFactory(new MapValueFactory(Column5MapKey));
+        this.BlueColumn.setCellValueFactory(new MapValueFactory(Column6MapKey));
+        this.ColorColumn.setCellValueFactory(new MapValueFactory(Column7MapKey));
       	this.dataTableView.setEditable(true);
-        this.tableRecord = getImageRecords();
+        this.tabledRecord = generateDataInRecord();
         this.dataTableView.setItems(tableRecord);
-//        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
-//        Callback<TableColumn<ImageRecord, String>, TableCell<ImageRecord, String>>
-//            cellFactoryForProperty = new Callback<TableColumn<ImageRecord, String>,
-//                TableCell<ImageRecord, String>>() {
-//                    @SuppressWarnings("unchecked")
-//					@Override
-//                    public TableCell call(TableColumn p) {
-//                        return new TextFieldTableCell(new StringConverter() {
-//                            @Override
-//                            public String toString(Object t) {
-//                                return t.toString();
-//                            }
-//                            @Override
-//                            public Object fromString(String string) {
-//                                return string;
-//                            }                                    
-//                        });
-//                    }
-//        };
-//        this.NameColumn.setCellFactory(cellFactoryForProperty);
-//        this.PathColumn.setCellFactory(cellFactoryForProperty);
-//        this.DateColumn.setCellFactory(cellFactoryForProperty);
-//        this.RedColumn.setCellFactory(cellFactoryForProperty);
-//        this.GreenColumn.setCellFactory(cellFactoryForProperty);
-//        this.BlueColumn.setCellFactory(cellFactoryForProperty);
-//        this.ColorColumn.setCellFactory(cellFactoryForProperty);
+        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
+        Callback<TableColumn<Map, String>, TableCell<Map, String>>
+            cellFactoryForMap = new Callback<TableColumn<Map, String>,
+                TableCell<Map, String>>() {
+                    @SuppressWarnings("unchecked")
+					@Override
+                    public TableCell call(TableColumn p) {
+                        return new TextFieldTableCell(new StringConverter() {
+                            @Override
+                            public String toString(Object t) {
+                                return t.toString();
+                            }
+                            @Override
+                            public Object fromString(String string) {
+                                return string;
+                            }                                    
+                        });
+                    }
+        };
+        this.ImageTcolumn.setCellFactory(cellFactoryForMap);
+        this.LocationTcolumn.setCellFactory(cellFactoryForMap);
+        this.DateColumn.setCellFactory(cellFactoryForMap);
+        this.RedColumn.setCellFactory(cellFactoryForMap);
+        this.GreenColumn.setCellFactory(cellFactoryForMap);
+        this.BlueColumn.setCellFactory(cellFactoryForMap);
+        this.ColorColumn.setCellFactory(cellFactoryForMap);
 
 	}
  
-    private ObservableList<ImageRecord> getImageRecords() {
+    private ObservableList<ImageRecord> generateDataInRecord() {
         int max = 10;
-        String sql= "select * from ImageFX;";
+        String sql= "select * from Imagecomp;";
 	    int	n = adapter.executeQuery(sql);
         ObservableList<ImageRecord> allData = FXCollections.observableArrayList();
         for (int i = 0; i < n; i++) {
@@ -221,9 +228,9 @@ public class DataTableController implements Initializable{
             String fn = adapter.getValueAt(i, 0);
             String d = adapter.getValueAt(i, 2);
             String r = adapter.getValueAt(i, 3);
-            String g = adapter.getValueAt(i, 4);
-            String b = adapter.getValueAt(i, 5);
-            String c = adapter.getValueAt(i, 6);
+            String g = adapter.getValueAt(i, 5);
+            String b = adapter.getValueAt(i, 6);
+            String c = adapter.getValueAt(i, 7);
             ImageRecord record = new ImageRecord(fp, fn, d, r, g, b, c);
             
 //            dataRow.put(Column1MapKey, filepath);

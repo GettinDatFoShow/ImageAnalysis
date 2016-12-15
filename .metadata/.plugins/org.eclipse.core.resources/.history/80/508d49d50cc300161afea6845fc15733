@@ -172,6 +172,7 @@ public class DataTableController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		this.NameColumn.setCellValueFactory(new PropertyValueFactory<>("filename"));
       	this.PathColumn.setCellValueFactory(new PropertyValueFactory<>("filepath"));
         this.DateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -184,7 +185,7 @@ public class DataTableController implements Initializable{
         this.dataTableView.setItems(tableRecord);
 //        this.dataTableView.getSelectionModel().setCellSelectionEnabled(true);
 //        Callback<TableColumn<ImageRecord, String>, TableCell<ImageRecord, String>>
-//            cellFactoryForProperty = new Callback<TableColumn<ImageRecord, String>,
+//            cellFactoryForMap = new Callback<TableColumn<ImageRecord, String>,
 //                TableCell<ImageRecord, String>>() {
 //                    @SuppressWarnings("unchecked")
 //					@Override
@@ -201,19 +202,19 @@ public class DataTableController implements Initializable{
 //                        });
 //                    }
 //        };
-//        this.NameColumn.setCellFactory(cellFactoryForProperty);
-//        this.PathColumn.setCellFactory(cellFactoryForProperty);
-//        this.DateColumn.setCellFactory(cellFactoryForProperty);
-//        this.RedColumn.setCellFactory(cellFactoryForProperty);
-//        this.GreenColumn.setCellFactory(cellFactoryForProperty);
-//        this.BlueColumn.setCellFactory(cellFactoryForProperty);
-//        this.ColorColumn.setCellFactory(cellFactoryForProperty);
+//        this.NameColumn.setCellFactory(cellFactoryForMap);
+//        this.PathColumn.setCellFactory(cellFactoryForMap);
+//        this.DateColumn.setCellFactory(cellFactoryForMap);
+//        this.RedColumn.setCellFactory(cellFactoryForMap);
+//        this.GreenColumn.setCellFactory(cellFactoryForMap);
+//        this.BlueColumn.setCellFactory(cellFactoryForMap);
+//        this.ColorColumn.setCellFactory(cellFactoryForMap);
 
 	}
  
     private ObservableList<ImageRecord> getImageRecords() {
         int max = 10;
-        String sql= "select * from ImageFX;";
+        String sql= "select * from Imagecomp;";
 	    int	n = adapter.executeQuery(sql);
         ObservableList<ImageRecord> allData = FXCollections.observableArrayList();
         for (int i = 0; i < n; i++) {
@@ -221,9 +222,9 @@ public class DataTableController implements Initializable{
             String fn = adapter.getValueAt(i, 0);
             String d = adapter.getValueAt(i, 2);
             String r = adapter.getValueAt(i, 3);
-            String g = adapter.getValueAt(i, 4);
-            String b = adapter.getValueAt(i, 5);
-            String c = adapter.getValueAt(i, 6);
+            String g = adapter.getValueAt(i, 5);
+            String b = adapter.getValueAt(i, 6);
+            String c = adapter.getValueAt(i, 7);
             ImageRecord record = new ImageRecord(fp, fn, d, r, g, b, c);
             
 //            dataRow.put(Column1MapKey, filepath);

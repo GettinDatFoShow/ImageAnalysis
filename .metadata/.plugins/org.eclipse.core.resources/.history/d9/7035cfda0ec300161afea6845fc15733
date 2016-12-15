@@ -820,7 +820,7 @@ public class ICController implements Initializable {
              ByteArrayInputStream y = new ByteArrayInputStream(array);
              System.out.println("date=" + date);
             PreparedStatement pst =  adapter.connection.prepareStatement( 
-            "INSERT INTO ImageFX(imagepath, imagename, imagedate, percentred, percentgreen, percentblue, colorfulness, histogram) VALUES(?,?,?,?,?,?,?,?)");
+            "INSERT INTO ImageComp(imagepath, imagename, imagedate, percentred, percentgreen, percentblue, colorfulness, histogram) VALUES(?,?,?,?,?,?,?,?)");
             System.out.println("filename=" + filename);
             System.out.println("FILEpath=" + filepath);
            
