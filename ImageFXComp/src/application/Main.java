@@ -57,6 +57,7 @@ public class Main extends Application {
 		this.MainStage.show();
 	}
 	static public JDBCAdapter adapter;
+	
 	public static void main(String[] args){
 		String driver = "org.h2.Driver";
 	    String server = "jdbc:h2:~/mydb";
